@@ -3,7 +3,7 @@ import asyncio
 from dotenv import find_dotenv
 from dotenv import load_dotenv
 
-from agentize.chains import summarize
+from agentize.prompts import summarize
 
 
 def main() -> None:
