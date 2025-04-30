@@ -1,5 +1,5 @@
 [project]
-name = "pythontemplate"
+name = "agentize"
 version = "0.1.0"
 description = ""
 readme = "README.md"
@@ -7,22 +7,18 @@ authors = [{ name = "narumi", email = "toucans-cutouts0f@icloud.com" }]
 requires-python = ">=3.12"
 dependencies = [
     "loguru>=0.7.3",
+    "openai-agents>=0.0.13",
 ]
 
 [project.scripts]
-pythontemplate = "pythontemplate.cli:main"
+agentize = "agentize.cli:main"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [dependency-groups]
-dev = [
- "mypy>=1.15.0",
- "pytest>=8.3.3",
- "pytest-cov>=6.0.0",
- "ruff>=0.7.3",
-]
+dev = ["mypy>=1.15.0", "pytest>=8.3.3", "pytest-cov>=6.0.0", "ruff>=0.7.3"]
 
 [tool.ruff]
 exclude = ["build"]
