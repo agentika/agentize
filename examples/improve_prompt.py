@@ -12,13 +12,13 @@ def main() -> None:
 
     prompt = "Summarize the following text: {text}"
 
-    result = asyncio.run(improve_prompt(prompt=prompt, lang="English"))
-    print(result)
+    result1 = asyncio.run(improve_prompt(prompt=prompt, lang="English"))
+    print(result1)
 
     print("=" * 100)
 
-    result = asyncio.run(improve_prompt_v2(prompt=prompt, lang="English"))
-    print(result)
+    result2 = asyncio.run(improve_prompt_v2(prompt=prompt, lang="English"))
+    print(result2)
 
 
 if __name__ == "__main__":

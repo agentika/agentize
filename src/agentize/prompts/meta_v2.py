@@ -58,5 +58,5 @@ class Prompt(BaseModel):
         )
 
 
-async def improve_prompt_v2(prompt: str, lang: str = "English") -> str:
+async def improve_prompt_v2(prompt: str, lang: str = "English") -> Prompt:
     return await parse(input=prompt, instructions=INSTRUCTIONS.format(lang=lang), output_type=Prompt)
