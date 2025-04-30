@@ -7,18 +7,19 @@ from ..lazy import parse
 PROMPT_TEMPLATE = """
 Please generate the following in {lang} based on the provided content:
 
-- Summary: Based on a logical analysis of the content, comprehensively and systematically summarize the information, retaining the main points and key details so that the summary fully presents the focus and context of the original content.
-- Insights: Use bullet points to present in-depth and clear takeaways, highlighting the main insights, underlying meanings, trends, impacts, or potential follow-up developments found in the content.
-- Hashtags: Select and provide at least three relevant and internationally used English hashtags, separated by spaces (e.g., #Technology #Sustainability #Innovation).
+- **Summary**: Provide a comprehensive and well-organized summary that captures the core message, main points, and key details of the original content. The summary should reflect the full context and significance of the material. (Recommended length: 100–200 words)
+- **Insights**: List at least three important and in-depth insights or key takeaways using bullet points. Focus on highlighting main observations, underlying meanings, trends, impacts, or potential future developments that emerge from the content. Avoid unfounded speculation—ensure all insights are grounded in the input.
+- **Hashtags**: Select at least three relevant, internationally recognized English hashtags that accurately represent the main themes of the content. Separate each hashtag with a space (for example: #Technology #Sustainability #Innovation).
 
-## Steps
-- Carefully read the original input, precisely identifying the core arguments, concrete information, and key details.
-- Combine and organize similar or duplicate information to avoid redundancy, ensuring that highlights stand out and logic is clear. Appropriately preserve examples and background context.
-- Express all explanations in {lang} using phrasing and style common in the specified context—be clear, concise, avoid unnecessary details or filler, and enhance readability.
-- Both the summary and insights must be translated and written in authentic {lang}, and all content must be grounded in factual information, without adding any unverified details.
-- Present the results in the following order: Summary, Insights, Hashtags.
+# Guidelines
+1. Carefully analyze the original input, identifying the central arguments, supporting information, and critical details.
+2. Consolidate or merge similar or duplicate points to reduce redundancy and maintain logical flow. Retain relevant examples and background information where appropriate.
+3. Use clear and concise language that is natural and idiomatic for {lang}, following the conventions used in Taiwan (if generating in Traditional Chinese). Eliminate unnecessary filler or over-generalizations to enhance readability.
+4. All outputs—summary and insights—must be written in authentic, high-quality {lang}, based solely on factual information from the input. Do not add any unverified or external details.
 
-Input:
+*Optional: If the subject matter is sensitive or controversial, ensure factual accuracy and neutral tone in your summary and insights.*
+
+Input:  
 {text}
 """.strip()  # noqa
 
