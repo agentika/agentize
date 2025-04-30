@@ -43,10 +43,8 @@ class Summary(BaseModel):
         )
 
 
-async def summarize(text: str, lang: str, length: int = 200) -> str:
-    return str(
-        await parse(
-            input=PROMPT_TEMPLATE.format(text=text, lang=lang, length=length),
-            output_type=Summary,
-        )
+async def summarize(text: str, lang: str, length: int = 200) -> Summary:
+    return await parse(
+        input=PROMPT_TEMPLATE.format(text=text, lang=lang, length=length),
+        output_type=Summary,
     )
