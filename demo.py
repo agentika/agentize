@@ -1,9 +1,11 @@
 from functools import cache
+from typing import Any
 
 import chainlit as cl
 from agents import Agent
 from agents import ModelSettings
 from agents import Runner
+from agents import TResponseInputItem
 from dotenv import find_dotenv
 from dotenv import load_dotenv
 
@@ -17,9 +19,9 @@ class OpenAIAgent:
             model=get_openai_model(),
             model_settings=ModelSettings(temperature=0.0),
         )
-        self.messages = []
+        self.messages: list[TResponseInputItem] = []
 
-    async def run(self, message: str) -> None:
+    async def run(self, message: str) -> str:
         self.messages.append(
             {
                 "role": "user",
@@ -28,7 +30,7 @@ class OpenAIAgent:
         )
         result = await Runner.run(starting_agent=self.agent, input=self.messages)
         self.messages = result.to_input_list()
-        return result.final_output
+        return result.final_output_as(str)
 
 
 @cache

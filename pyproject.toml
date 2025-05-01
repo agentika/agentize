@@ -26,7 +26,10 @@ dev = [
     "pytest>=8.3.3",
     "pytest-cov>=6.0.0",
     "ruff>=0.7.3",
+    "types-aiofiles>=24.1.0.20250326",
+    "types-deprecated>=1.2.15.20250304",
     "types-pyyaml>=6.0.12.20250402",
+    "types-ujson>=5.10.0.20250326",
 ]
 
 [tool.ruff]
