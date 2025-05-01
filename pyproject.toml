@@ -8,7 +8,8 @@ requires-python = ">=3.12"
 dependencies = [
     "chainlit>=2.5.5",
     "loguru>=0.7.3",
- "openai-agents>=0.0.13",
+    "openai-agents>=0.0.13",
+    "typer>=0.15.3",
 ]
 
 [project.scripts]
