@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from pydantic import BaseModel
+from agents import function_tool
+
 
 from ..lazy import parse
 
@@ -40,7 +42,7 @@ class Summary(BaseModel):
         )
 
 
-async def summarize(text: str, lang: str, length: int = 200) -> Summary:
+async def _summarize(text: str, lang: str, length: int = 200) -> Summary:
     """Summarize the given text in the specified language and length.
 
     Args:
@@ -53,3 +55,12 @@ async def summarize(text: str, lang: str, length: int = 200) -> Summary:
         instructions=INSTRUCTIONS.format(lang=lang, length=length),
         output_type=Summary,
     )
+
+
+async def summarize(text: str, lang: str, length: int = 200) -> Summary:
+    return _summarize(text, lang, length)
+
+
+@function_tool
+async def summarize_tool(text: str, lang: str, length: int = 200) -> Summary:
+    return _summarize(text, lang, length)
