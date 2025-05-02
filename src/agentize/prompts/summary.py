@@ -41,6 +41,13 @@ class Summary(BaseModel):
 
 
 async def summarize(text: str, lang: str, length: int = 200) -> Summary:
+    """Summarize the given text in the specified language and length.
+
+    Args:
+        text (str): The text to summarize.
+        lang (str): The language to use for the summary.
+        length (int): The maximum length of the summary in words.
+    """
     return await parse(
         input=text,
         instructions=INSTRUCTIONS.format(lang=lang, length=length),
