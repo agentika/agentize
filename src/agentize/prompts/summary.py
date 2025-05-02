@@ -21,7 +21,18 @@ Please generate the following in {lang} based on the provided content:
 """  # noqa
 
 
+class Step(BaseModel):
+    explanation: str
+    output: str
+
+
+class Reasoning(BaseModel):
+    steps: list[Step]
+    final_output: str
+
+
 class Summary(BaseModel):
+    reasoning: Reasoning
     summary: str
     insights: list[str]
     hashtags: list[str]
