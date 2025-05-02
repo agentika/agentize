@@ -1,0 +1,9 @@
+reviewers:
+  - name: chechiachang
+  - name: John-Lin
+  - name: narumiruna
+ignore:
+  authors: # Ignore PR if these authors contain PR's author
+    - author_name
+  titles: # Ignore PR if PR's title contains these words
+    - wip

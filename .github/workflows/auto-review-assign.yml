@@ -1,0 +1,13 @@
+name: Auto Reviewer Assign
+on:
+  pull_request:
+    types: [opened, review_requested]
+
+jobs:
+  auto-reviewer-assign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: johnmanjiro13/auto-reviewer-assign@v0.2.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
