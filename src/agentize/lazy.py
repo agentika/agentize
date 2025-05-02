@@ -13,7 +13,7 @@ TextFormatT = TypeVar("TextFormatT", bound=BaseModel)
 async def send(input: str, instructions: str | None = None) -> str:
     result = await Runner.run(
         starting_agent=Agent(
-            "",
+            "lazy_send_agent",
             instructions,
             model=get_openai_model(),
             model_settings=get_openai_model_settings(),
@@ -23,10 +23,12 @@ async def send(input: str, instructions: str | None = None) -> str:
     return result.final_output
 
 
-async def parse(input: str, output_type: type[TextFormatT], instructions: str | None = None) -> TextFormatT:
+async def parse(
+    input: str, output_type: type[TextFormatT], instructions: str | None = None
+) -> TextFormatT:
     result = await Runner.run(
         starting_agent=Agent(
-            "",
+            "lazy_parse_agent",
             instructions,
             model=get_openai_model(),
             model_settings=get_openai_model_settings(),
