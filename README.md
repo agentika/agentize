@@ -5,5 +5,5 @@
 ### Demo
 
 ```sh
-uv run chainlit run demo.py
+uv run chainlit run examples/demo.py
 ```
