@@ -28,6 +28,7 @@ dev = [
     "types-aiofiles>=24.1.0.20250326",
     "types-deprecated>=1.2.15.20250304",
     "types-pyyaml>=6.0.12.20250402",
+    "types-setuptools>=80.0.0.20250429",
     "types-ujson>=5.10.0.20250326",
 ]
 
