@@ -20,6 +20,16 @@ async def lazy_run(
     model_settings: ModelSettings | None = None,
     output_type: type[TextFormatT] | None = None,
 ) -> str | TextFormatT:
+    """Run the agent with the given input and instructions.
+
+    Args:
+        input (str): The input to the agent.
+        instructions (str | None): The instructions for the agent.
+        name (str): The name of the agent.
+        model (Model | None): The model to use for the agent.
+        model_settings (ModelSettings | None): The settings for the model.
+        output_type (type[TextFormatT] | None): The type of output to return.
+    """
     if model is None:
         model = get_openai_model()
 
