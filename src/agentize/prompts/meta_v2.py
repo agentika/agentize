@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pydantic import BaseModel
 
-from ..lazy import parse
+from ..lazy import lazy_run
 
 # https://cookbook.openai.com/examples/gpt4-1_prompting_guide
 INSTRUCTIONS = """
@@ -59,4 +59,4 @@ class Prompt(BaseModel):
 
 
 async def improve_prompt_v2(prompt: str, lang: str = "English") -> Prompt:
-    return await parse(input=prompt, instructions=INSTRUCTIONS.format(lang=lang), output_type=Prompt)
+    return await lazy_run(input=prompt, instructions=INSTRUCTIONS.format(lang=lang), output_type=Prompt)

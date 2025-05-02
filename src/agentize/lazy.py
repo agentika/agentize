@@ -1,3 +1,4 @@
+from typing import Any
 from typing import TypeVar
 
 from agents import Agent
@@ -9,7 +10,7 @@ from pydantic import BaseModel
 from .model import get_openai_model
 from .model import get_openai_model_settings
 
-TextFormatT = TypeVar("TextFormatT", bound=BaseModel)
+TextFormatT = TypeVar("TextFormatT", bound=BaseModel | str)
 
 
 async def lazy_run(
@@ -19,7 +20,7 @@ async def lazy_run(
     model: Model | None = None,
     model_settings: ModelSettings | None = None,
     output_type: type[TextFormatT] | None = None,
-) -> str | TextFormatT:
+) -> Any:
     """Run the agent with the given input and instructions.
 
     Args:
@@ -50,30 +51,3 @@ async def lazy_run(
     if output_type is None:
         return result.final_output
     return result.final_output_as(output_type)
-
-
-async def send(input: str, instructions: str | None = None) -> str:
-    result = await Runner.run(
-        starting_agent=Agent(
-            "",
-            instructions,
-            model=get_openai_model(),
-            model_settings=get_openai_model_settings(),
-        ),
-        input=input,
-    )
-    return result.final_output
-
-
-async def parse(input: str, output_type: type[TextFormatT], instructions: str | None = None) -> TextFormatT:
-    result = await Runner.run(
-        starting_agent=Agent(
-            "",
-            instructions,
-            model=get_openai_model(),
-            model_settings=get_openai_model_settings(),
-            output_type=output_type,
-        ),
-        input=input,
-    )
-    return result.final_output
