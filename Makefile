@@ -1,5 +1,11 @@
+format:
+	uv run ruff format .
+
 lint:
 	uv run ruff check .
+
+fix:
+	uv run ruff check . --fix
 
 type:
 	uv run mypy --install-types --non-interactive .
@@ -11,4 +17,4 @@ publish:
 	uv build -f wheel
 	uv publish
 
-.PHONY: lint test publish
+.PHONY: format lint fix type test publish
