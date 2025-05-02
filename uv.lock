@@ -11,7 +11,6 @@ name = "agentize"
 version = "0.0.1"
 source = { editable = "." }
 dependencies = [
-    { name = "chainlit" },
     { name = "loguru" },
     { name = "openai-agents" },
     { name = "typer" },
@@ -19,6 +18,7 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "chainlit" },
     { name = "mypy" },
     { name = "pip" },
     { name = "pytest" },
@@ -32,7 +32,6 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "chainlit", specifier = ">=2.5.5" },
     { name = "loguru", specifier = ">=0.7.3" },
     { name = "openai-agents", specifier = ">=0.0.13" },
     { name = "typer", specifier = ">=0.15.3" },
@@ -40,6 +39,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "chainlit", specifier = ">=2.5.5" },
     { name = "mypy", specifier = ">=1.15.0" },
     { name = "pip", specifier = ">=25.1" },
     { name = "pytest", specifier = ">=8.3.3" },

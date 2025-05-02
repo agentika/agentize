@@ -5,10 +5,12 @@ from agents import Agent
 from agents import ModelSettings
 from agents import Runner
 from agents import TResponseInputItem
+from agents import function_tool
 from dotenv import find_dotenv
 from dotenv import load_dotenv
 
 from agentize.model import get_openai_model
+from agentize.prompts.summary import summarize
 
 
 class OpenAIAgent:
@@ -17,6 +19,7 @@ class OpenAIAgent:
             name="agent",
             model=get_openai_model(),
             model_settings=ModelSettings(temperature=0.0),
+            tools=[function_tool(summarize)],
         )
         self.messages: list[TResponseInputItem] = []
 
