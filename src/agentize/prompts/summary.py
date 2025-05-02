@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 from ..lazy import parse
 
-PROMPT_TEMPLATE = """
+INSTRUCTIONS = """
 Please generate the following in {lang} based on the provided content:
 
 - **Summary**: Provide a comprehensive and well-organized summary that captures the core message, main points, and key details of the original content. The summary should reflect the full context and significance of the material. (Recommended maximum length: {length} words)
@@ -18,10 +18,7 @@ Please generate the following in {lang} based on the provided content:
 4. All outputs—summary and insights—must be written in authentic, high-quality {lang}, based solely on factual information from the input. Do not add any unverified or external details.
 
 *Optional: If the subject matter is sensitive or controversial, ensure factual accuracy and neutral tone in your summary and insights.*
-
-Input:  
-{text}
-""".strip()  # noqa
+"""  # noqa
 
 
 class Summary(BaseModel):
@@ -45,6 +42,7 @@ class Summary(BaseModel):
 
 async def summarize(text: str, lang: str, length: int = 200) -> Summary:
     return await parse(
-        input=PROMPT_TEMPLATE.format(text=text, lang=lang, length=length),
+        input=text,
+        instructions=INSTRUCTIONS.format(lang=lang, length=length),
         output_type=Summary,
     )
