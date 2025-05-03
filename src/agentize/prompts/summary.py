@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 
+from agents import function_tool
 from firecrawl import FirecrawlApp
 from pydantic import BaseModel
 
@@ -55,13 +56,6 @@ class Summary(BaseModel):
 
 
 async def summarize(text: str, lang: str, length: int = 200) -> Summary:
-    """Summarize the given text in the specified language and length.
-
-    Args:
-        text (str): The text to summarize.
-        lang (str): The language to use for the summary.
-        length (int): The maximum length of the summary in words.
-    """
     return await parse(
         input=text,
         instructions=INSTRUCTIONS.format(lang=lang, length=length),
@@ -70,13 +64,6 @@ async def summarize(text: str, lang: str, length: int = 200) -> Summary:
 
 
 async def scrape_summarize(url: str, lang: str, length: int = 200) -> Summary:
-    """Scrape and summarize the content from the given URL in the specified language and length.
-
-    Args:
-        url (str): The text to summarize.
-        lang (str): The language to use for the summary.
-        length (int): The maximum length of the summary in words.
-    """
     api_key = os.getenv("FIRECRAWL_API_KEY", "")
     app = FirecrawlApp(api_key=api_key)
 
@@ -89,3 +76,27 @@ async def scrape_summarize(url: str, lang: str, length: int = 200) -> Summary:
         lang=lang,
         length=length,
     )
+
+
+@function_tool
+async def summarize_agent(text: str, lang: str, length: int = 200) -> Summary:
+    """Summarize the given text in the specified language and length.
+
+    Args:
+        text (str): The text to summarize.
+        lang (str): The language to use for the summary.
+        length (int): The maximum length of the summary in words.
+    """
+    return await summarize(text, lang, length)
+
+
+@function_tool
+async def scrape_summarize_agent(url: str, lang: str, length: int = 200) -> Summary:
+    """Scrape and summarize the content from the given URL in the specified language and length.
+
+    Args:
+        url (str): The text to summarize.
+        lang (str): The language to use for the summary.
+        length (int): The maximum length of the summary in words.
+    """
+    return await scrape_summarize(url, lang, length)
