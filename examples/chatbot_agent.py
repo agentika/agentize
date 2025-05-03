@@ -1,3 +1,4 @@
+import os
 from functools import cache
 
 import chainlit as cl
@@ -8,6 +9,7 @@ from agents import TResponseInputItem
 from dotenv import find_dotenv
 from dotenv import load_dotenv
 
+from agentize.crawler.firecrawl import FirecrawlAuth
 from agentize.crawler.firecrawl import scrape_tool
 from agentize.model import get_openai_model
 from agentize.prompts.summary import scrape_summarize_tool
@@ -15,8 +17,9 @@ from agentize.prompts.summary import summarize_tool
 
 
 class OpenAIAgent:
-    def __init__(self) -> None:
-        self.agent = Agent(
+    def __init__(self, fc_auth) -> None:
+        self.fc_auth = fc_auth
+        self.agent = Agent[FirecrawlAuth](
             name="agent",
             model=get_openai_model(),
             model_settings=ModelSettings(temperature=0.0),
@@ -31,7 +34,7 @@ class OpenAIAgent:
                 "content": message,
             }
         )
-        result = await Runner.run(starting_agent=self.agent, input=self.messages)
+        result = await Runner.run(starting_agent=self.agent, input=self.messages, context=self.fc_auth)
         self.messages = result.to_input_list()
         return result.final_output_as(str)
 
@@ -39,7 +42,8 @@ class OpenAIAgent:
 @cache
 def get_agent() -> OpenAIAgent:
     load_dotenv(find_dotenv(), override=True)
-    return OpenAIAgent()
+    fc_auth = FirecrawlAuth(token=os.getenv("FIRECRAWL_API_KEY", ""))
+    return OpenAIAgent(fc_auth=fc_auth)
 
 
 @cl.on_message

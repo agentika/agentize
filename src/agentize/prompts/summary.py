@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+from agents import RunContextWrapper
 from agents import function_tool
 from pydantic import BaseModel
 
+from ..crawler import FirecrawlAuth
 from ..crawler import scrape
 from ..lazy import parse
 
@@ -69,7 +71,9 @@ async def summarize(text: str, lang: str, length: int = 200) -> Summary:
     )
 
 
-async def scrape_summarize(url: str, lang: str, length: int = 200) -> Summary:
+async def scrape_summarize(
+    wrapper: RunContextWrapper[FirecrawlAuth], url: str, lang: str, length: int = 200
+) -> Summary:
     """Scrape and summarize the content from the given URL in the specified language and length.
 
     Args:
@@ -78,7 +82,7 @@ async def scrape_summarize(url: str, lang: str, length: int = 200) -> Summary:
         length (int): The maximum length of the summary in words.
     """
     return await summarize(
-        text=scrape(url),
+        text=scrape(wrapper=wrapper, url=url),
         lang=lang,
         length=length,
     )
