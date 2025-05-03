@@ -4,8 +4,7 @@ from agents import function_tool
 from firecrawl import FirecrawlApp
 
 
-@function_tool
-async def scrape(url: str) -> str:
+def scrape(url: str) -> str:
     """Scrape and the content from the given URL.
 
     Args:
@@ -19,3 +18,6 @@ async def scrape(url: str) -> str:
         raise Exception(f"Failed to load URL: {url}, got: {result.error}")
 
     return result.markdown
+
+
+scrape_tool = function_tool(scrape)

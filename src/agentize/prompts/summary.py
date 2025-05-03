@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-import os
-
 from agents import function_tool
-from firecrawl import FirecrawlApp
 from pydantic import BaseModel
 
+from ..crawler import scrape
 from ..lazy import parse
 
 INSTRUCTIONS = """
@@ -79,15 +77,8 @@ async def scrape_summarize(url: str, lang: str, length: int = 200) -> Summary:
         lang (str): The language to use for the summary.
         length (int): The maximum length of the summary in words.
     """
-    api_key = os.getenv("FIRECRAWL_API_KEY", "")
-    app = FirecrawlApp(api_key=api_key)
-
-    result = app.scrape_url(url, formats=["markdown"])
-    if not result.success:
-        raise Exception(f"Failed to load URL: {url}, got: {result.error}")
-
     return await summarize(
-        text=result.markdown,
+        text=scrape(url),
         lang=lang,
         length=length,
     )
