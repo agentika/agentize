@@ -14,10 +14,10 @@ def main() -> None:
         "The quick brown fox jumps over the lazy dog. "
         "This is a well-known pangram that contains all the letters of the English alphabet."
     )
-    summary = asyncio.run(summarize(text, lang="台灣中文", length=1_000))
+    summary = asyncio.run(summarize(text=text, lang="台灣中文", length=1_000))
     print(summary)
 
-    url_summary = asyncio.run(scrape_summarize("https://firecrawl.dev", lang="台灣中文", length=1_000))
+    url_summary = asyncio.run(scrape_summarize(url="https://firecrawl.dev"))
     print(url_summary)
 
 

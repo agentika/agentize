@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
+
+from agents import RunContextWrapper
 from agents import function_tool
 from pydantic import BaseModel
 
@@ -22,6 +25,12 @@ Please generate the following in {lang} based on the provided content:
 
 *Optional: If the subject matter is sensitive or controversial, ensure factual accuracy and neutral tone in your summary and insights.*
 """  # noqa
+
+
+@dataclass
+class UserProfile:
+    lang: str = "zh-tw"
+    length: int = 200
 
 
 class Step(BaseModel):
@@ -54,14 +63,20 @@ class Summary(BaseModel):
         )
 
 
-async def summarize(text: str, lang: str, length: int = 200) -> Summary:
+async def summarize(
+    wrapper: RunContextWrapper[UserProfile] | None = None,
+    text: str = "",
+    lang: str = "",
+    length: int = 200,
+) -> Summary:
     """Summarize the given text in the specified language and length.
 
     Args:
         text (str): The text to summarize.
-        lang (str): The language to use for the summary.
-        length (int): The maximum length of the summary in words.
     """
+    if wrapper is not None:
+        lang = wrapper.context.lang
+        length = wrapper.context.length
     return await parse(
         input=text,
         instructions=INSTRUCTIONS.format(lang=lang, length=length),
@@ -69,15 +84,22 @@ async def summarize(text: str, lang: str, length: int = 200) -> Summary:
     )
 
 
-async def scrape_summarize(url: str, lang: str, length: int = 200) -> Summary:
+async def scrape_summarize(
+    wrapper: RunContextWrapper[UserProfile] | None = None,
+    url: str = "",
+    lang: str = "",
+    length: int = 200,
+) -> Summary:
     """Scrape and summarize the content from the given URL in the specified language and length.
 
     Args:
         url (str): The url to scrape.
-        lang (str): The language to use for the summary.
-        length (int): The maximum length of the summary in words.
     """
+    if wrapper is not None:
+        lang = wrapper.context.lang
+        length = wrapper.context.length
     return await summarize(
+        wrapper=wrapper,
         text=scrape(url),
         lang=lang,
         length=length,
