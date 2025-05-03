@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-
 from agents import RunContextWrapper
 from agents import function_tool
 from pydantic import BaseModel
 
+from ..context import UserProfile
 from ..crawler import scrape
 from ..lazy import parse
 
@@ -25,12 +24,6 @@ Please generate the following in {lang} based on the provided content:
 
 *Optional: If the subject matter is sensitive or controversial, ensure factual accuracy and neutral tone in your summary and insights.*
 """  # noqa
-
-
-@dataclass
-class UserProfile:
-    lang: str = "zh-tw"
-    length: int = 200
 
 
 class Step(BaseModel):
@@ -69,7 +62,7 @@ async def summarize(
     lang: str = "",
     length: int = 200,
 ) -> Summary:
-    """Summarize the given text in the specified language and length.
+    """Summarize the given text.
 
     Args:
         text (str): The text to summarize.
@@ -93,7 +86,7 @@ async def scrape_summarize(
     lang: str = "",
     length: int = 200,
 ) -> Summary:
-    """Scrape and summarize the content from the given URL in the specified language and length.
+    """Scrape and summarize the content from the given URL.
 
     Args:
         url (str): The url to scrape.
