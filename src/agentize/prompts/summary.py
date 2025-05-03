@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 
+from agents import function_tool
 from firecrawl import FirecrawlApp
 from pydantic import BaseModel
 
@@ -89,3 +90,7 @@ async def scrape_summarize(url: str, lang: str, length: int = 200) -> Summary:
         lang=lang,
         length=length,
     )
+
+
+summarize_tool = function_tool(summarize)
+scrape_summarize_tool = function_tool(scrape_summarize)
