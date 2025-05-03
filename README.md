@@ -1,4 +1,5 @@
 # agentize
+[![image](https://img.shields.io/pypi/v/agentize.svg)](https://pypi.python.org/pypi/agentize)
 
 ## Usage
 
