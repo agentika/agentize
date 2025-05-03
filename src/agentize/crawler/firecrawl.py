@@ -1,7 +1,6 @@
 import os
 
 from agents import function_tool
-from firecrawl import FirecrawlApp
 
 
 @function_tool
@@ -11,6 +10,14 @@ async def scrape(url: str) -> str:
     Args:
         url (str): The URL to scrape.
     """
+    try:
+        from firecrawl import FirecrawlApp
+    except ImportError as e:
+        raise ImportError(
+            "Firecrawl not found. Please install it via: "
+            "`pip install firecrawl-py` or `pip install agentize[firecrawl]`."
+        ) from e
+
     api_key = os.getenv("FIRECRAWL_API_KEY", "")
     app = FirecrawlApp(api_key=api_key)
 

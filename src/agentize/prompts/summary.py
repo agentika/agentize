@@ -3,7 +3,6 @@ from __future__ import annotations
 import os
 
 from agents import function_tool
-from firecrawl import FirecrawlApp
 from pydantic import BaseModel
 
 from ..lazy import parse
@@ -79,6 +78,14 @@ async def scrape_summarize(url: str, lang: str, length: int = 200) -> Summary:
         lang (str): The language to use for the summary.
         length (int): The maximum length of the summary in words.
     """
+    try:
+        from firecrawl import FirecrawlApp
+    except ImportError as e:
+        raise ImportError(
+            "Firecrawl not found. Please install it via: "
+            "`pip install firecrawl-py` or `pip install agentize[firecrawl]`."
+        ) from e
+
     api_key = os.getenv("FIRECRAWL_API_KEY", "")
     app = FirecrawlApp(api_key=api_key)
 

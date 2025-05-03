@@ -5,7 +5,18 @@ description = ""
 readme = "README.md"
 authors = [{ name = "narumi", email = "toucans-cutouts0f@icloud.com" }]
 requires-python = ">=3.12"
-dependencies = ["firecrawl-py>=2.5.3", "loguru>=0.7.3", "openai-agents>=0.0.13"]
+dependencies = [
+ "loguru>=0.7.3",
+ "openai-agents>=0.0.13",
+]
+
+[project.optional-dependencies]
+firecrawl = [
+    "firecrawl-py>=2.5.3",
+]
+all = [
+    "firecrawl-py>=2.5.3",
+]
 
 [build-system]
 requires = ["hatchling"]
