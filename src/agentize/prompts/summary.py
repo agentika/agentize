@@ -8,7 +8,6 @@ from pydantic import BaseModel
 
 from ..lazy import parse
 
-
 INSTRUCTIONS = """
 Please generate the following in {lang} based on the provided content:
 

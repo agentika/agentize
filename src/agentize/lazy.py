@@ -65,9 +65,7 @@ async def send(input: str, instructions: str | None = None) -> str:
     return result.final_output
 
 
-async def parse(
-    input: str, output_type: type[TextFormatT], instructions: str | None = None
-) -> TextFormatT:
+async def parse(input: str, output_type: type[TextFormatT], instructions: str | None = None) -> TextFormatT:
     result = await Runner.run(
         starting_agent=Agent(
             "lazy_parse_agent",
