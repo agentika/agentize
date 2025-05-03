@@ -17,7 +17,9 @@ def main() -> None:
     summary = asyncio.run(summarize(text=text, lang="台灣中文", length=1_000))
     print(summary)
 
-    url_summary = asyncio.run(scrape_summarize(url="https://firecrawl.dev"))
+    url_summary = asyncio.run(
+        scrape_summarize(url="https://firecrawl.dev", lang="台灣中文", length=1_000)
+    )
     print(url_summary)
 
 
