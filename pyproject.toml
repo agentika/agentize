@@ -1,15 +1,11 @@
 [project]
 name = "agentize"
-version = "0.0.2"
+version = "0.0.3"
 description = ""
 readme = "README.md"
 authors = [{ name = "narumi", email = "toucans-cutouts0f@icloud.com" }]
 requires-python = ">=3.12"
-dependencies = [
-    "firecrawl-py>=2.5.3",
-    "loguru>=0.7.3",
-    "openai-agents>=0.0.13",
-]
+dependencies = ["firecrawl-py>=2.5.3", "loguru>=0.7.3", "openai-agents>=0.0.13"]
 
 [project.scripts]
 agentize = "agentize.cli:main"
@@ -60,3 +56,9 @@ filterwarnings = ["ignore::DeprecationWarning"]
 
 [tool.mypy]
 ignore_missing_imports = true
+
+[tool.bumpversion]
+current_version = "0.0.3"
+tag = true
+commit = true
+pre_commit_hooks = ["uv lock", "git add uv.lock"]
