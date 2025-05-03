@@ -5,7 +5,6 @@ from agents import Agent
 from agents import ModelSettings
 from agents import Runner
 from agents import TResponseInputItem
-from agents import function_tool
 from dotenv import find_dotenv
 from dotenv import load_dotenv
 
