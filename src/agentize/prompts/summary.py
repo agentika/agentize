@@ -75,8 +75,11 @@ async def summarize(
         text (str): The text to summarize.
     """
     if wrapper is not None:
-        lang = wrapper.context.lang
-        length = wrapper.context.length
+        return await parse(
+            input=text,
+            instructions=INSTRUCTIONS.format(lang=wrapper.context.lang, length=wrapper.context.length),
+            output_type=Summary,
+        )
     return await parse(
         input=text,
         instructions=INSTRUCTIONS.format(lang=lang, length=length),
@@ -96,14 +99,13 @@ async def scrape_summarize(
         url (str): The url to scrape.
     """
     if wrapper is not None:
-        lang = wrapper.context.lang
-        length = wrapper.context.length
-    return await summarize(
-        wrapper=wrapper,
-        text=scrape(url),
-        lang=lang,
-        length=length,
-    )
+        return await summarize(
+            wrapper=wrapper,
+            text=scrape(url),
+            lang=wrapper.context.lang,
+            length=wrapper.context.length,
+        )
+    return await summarize(text=scrape(url), lang=lang, length=length)
 
 
 summarize_tool = function_tool(summarize)
