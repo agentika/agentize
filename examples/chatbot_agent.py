@@ -8,6 +8,7 @@ from agents import TResponseInputItem
 from dotenv import find_dotenv
 from dotenv import load_dotenv
 
+from agentize.crawler.firecrawl import scrape
 from agentize.model import get_openai_model
 from agentize.prompts.summary import scrape_summarize_tool
 from agentize.prompts.summary import summarize_tool
@@ -19,7 +20,7 @@ class OpenAIAgent:
             name="agent",
             model=get_openai_model(),
             model_settings=ModelSettings(temperature=0.0),
-            tools=[scrape_summarize_tool, summarize_tool],
+            tools=[scrape_summarize_tool, summarize_tool, scrape],
         )
         self.messages: list[TResponseInputItem] = []
 
