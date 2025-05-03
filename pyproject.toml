@@ -7,9 +7,6 @@ authors = [{ name = "narumi", email = "toucans-cutouts0f@icloud.com" }]
 requires-python = ">=3.12"
 dependencies = ["firecrawl-py>=2.5.3", "loguru>=0.7.3", "openai-agents>=0.0.13"]
 
-[project.scripts]
-agentize = "agentize.cli:main"
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
