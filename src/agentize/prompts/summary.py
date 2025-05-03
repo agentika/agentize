@@ -20,6 +20,7 @@ Please generate the following in {lang} based on the provided content:
 2. Consolidate or merge similar or duplicate points to reduce redundancy and maintain logical flow. Retain relevant examples and background information where appropriate.
 3. Use clear and concise language that is natural and idiomatic for {lang}, following the conventions used in Taiwan (if generating in Traditional Chinese). Eliminate unnecessary filler or over-generalizations to enhance readability.
 4. All outputs—summary and insights—must be written in authentic, high-quality {lang}, based solely on factual information from the input. Do not add any unverified or external details.
+5. Think step by step, but only keep a minimum draft for each thinking step, with 5 words at most.
 
 *Optional: If the subject matter is sensitive or controversial, ensure factual accuracy and neutral tone in your summary and insights.*
 """  # noqa
