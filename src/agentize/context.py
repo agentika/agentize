@@ -1,7 +1,6 @@
-from dataclasses import dataclass
+from pydantic import BaseModel
 
 
-@dataclass
-class UserProfile:
-    lang: str = "zh-tw"
-    length: int = 200
+class UserProfileContext(BaseModel):
+    lang: str
+    length: int

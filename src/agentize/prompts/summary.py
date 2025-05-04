@@ -1,10 +1,7 @@
 from __future__ import annotations
 
-from agents import RunContextWrapper
-from agents import function_tool
 from pydantic import BaseModel
 
-from ..context import UserProfile
 from ..crawler import scrape
 from ..lazy import parse
 
@@ -56,23 +53,14 @@ class Summary(BaseModel):
         )
 
 
-async def summarize(
-    wrapper: RunContextWrapper[UserProfile] | None = None,
-    text: str = "",
-    lang: str = "",
-    length: int = 200,
-) -> Summary:
-    """Summarize the given text.
+async def summarize(text: str, lang: str, length: int = 200) -> Summary:
+    """Summarize the given text in the specified language and length.
 
     Args:
         text (str): The text to summarize.
+        lang (str): The language to use for the summary.
+        length (int): The maximum length of the summary in words.
     """
-    if wrapper is not None:
-        return await parse(
-            input=text,
-            instructions=INSTRUCTIONS.format(lang=wrapper.context.lang, length=wrapper.context.length),
-            output_type=Summary,
-        )
     return await parse(
         input=text,
         instructions=INSTRUCTIONS.format(lang=lang, length=length),
@@ -80,26 +68,17 @@ async def summarize(
     )
 
 
-async def scrape_summarize(
-    wrapper: RunContextWrapper[UserProfile] | None = None,
-    url: str = "",
-    lang: str = "",
-    length: int = 200,
-) -> Summary:
-    """Scrape and summarize the content from the given URL.
+async def scrape_summarize(url: str, lang: str, length: int = 200) -> Summary:
+    """Scrape and summarize the content from the given URL in the specified language and length.
 
     Args:
         url (str): The url to scrape.
+        lang (str): The language to use for the summary.
+        length (int): The maximum length of the summary in words.
     """
-    if wrapper is not None:
-        return await summarize(
-            wrapper=wrapper,
-            text=scrape(url),
-            lang=wrapper.context.lang,
-            length=wrapper.context.length,
-        )
-    return await summarize(text=scrape(url), lang=lang, length=length)
-
-
-summarize_tool = function_tool(summarize)
-scrape_summarize_tool = function_tool(scrape_summarize)
+    text = await scrape(url)
+    return await summarize(
+        text=text,
+        lang=lang,
+        length=length,
+    )
