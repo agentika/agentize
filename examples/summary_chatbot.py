@@ -16,8 +16,8 @@ from agentize.model import get_openai_model
 class OpenAIAgent:
     def __init__(self, lang: str = "台灣中文", length: int = 200) -> None:
         self.summary_agent = get_summary_agent(lang=lang, length=length)
-        self.agent = Agent(
-            name="agent",
+        self.main_agent = Agent(
+            name="main_agent",
             instructions="You are a helpful assistant. Handoff to the summary agent when you need to summarize.",
             model=get_openai_model(),
             model_settings=ModelSettings(temperature=0.0),
@@ -33,9 +33,9 @@ class OpenAIAgent:
                 "content": message,
             }
         )
-        result = await Runner.run(starting_agent=self.agent, input=self.messages)
+        result = await Runner.run(starting_agent=self.main_agent, input=self.messages)
         self.messages = result.to_input_list()
-        return result.final_output_as(str)
+        return str(result.final_output)
 
 
 @cache
