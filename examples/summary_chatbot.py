@@ -9,8 +9,10 @@ from dotenv import find_dotenv
 from dotenv import load_dotenv
 
 from agentize.agents.summary import get_summary_agent
-from agentize.crawler.firecrawl import scrape_tool
+
+from agentize.crawler.firecrawl import map_tool
 from agentize.crawler.firecrawl import search_tool
+from agentize.crawler.firecrawl import scrape_tool
 from agentize.model import get_openai_model
 
 
@@ -22,7 +24,7 @@ class OpenAIAgent:
             instructions="You are a helpful assistant. Handoff to the summary agent when you need to summarize.",
             model=get_openai_model(),
             model_settings=ModelSettings(temperature=0.0),
-            tools=[scrape_tool, search_tool],
+            tools=[scrape_tool, map_tool, search_tool],
             handoffs=[self.summary_agent],
         )
         self.messages: list[TResponseInputItem] = []
