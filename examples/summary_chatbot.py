@@ -2,7 +2,6 @@ from functools import cache
 
 import chainlit as cl
 from agents import Agent
-from agents import ModelSettings
 from agents import Runner
 from agents import TResponseInputItem
 from dotenv import find_dotenv
