@@ -8,15 +8,18 @@ from agents import TResponseInputItem
 from dotenv import find_dotenv
 from dotenv import load_dotenv
 
+from agentize.context import UserProfileContext
 from agentize.crawler.firecrawl import scrape_tool
 from agentize.model import get_openai_model
-from agentize.prompts.summary import scrape_summarize_tool
-from agentize.prompts.summary import summarize_tool
+from agentize.tools.summary import scrape_summarize_tool
+from agentize.tools.summary import summarize_tool
 
 
 class OpenAIAgent:
     def __init__(self) -> None:
-        self.agent = Agent(
+        # Create a context instance
+        self.user_profile = UserProfileContext(lang="English", length=1_000)
+        self.agent = Agent[UserProfileContext](
             name="agent",
             model=get_openai_model(),
             model_settings=ModelSettings(temperature=0.0),
@@ -31,7 +34,7 @@ class OpenAIAgent:
                 "content": message,
             }
         )
-        result = await Runner.run(starting_agent=self.agent, input=self.messages)
+        result = await Runner.run(starting_agent=self.agent, input=self.messages, context=self.user_profile)
         self.messages = result.to_input_list()
         return result.final_output_as(str)
 
