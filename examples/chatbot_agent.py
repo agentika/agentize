@@ -2,7 +2,6 @@ from functools import cache
 
 import chainlit as cl
 from agents import Agent
-from agents import ModelSettings
 from agents import Runner
 from agents import TResponseInputItem
 from dotenv import find_dotenv
@@ -10,6 +9,7 @@ from dotenv import load_dotenv
 
 from agentize.crawler.firecrawl import scrape_tool
 from agentize.model import get_openai_model
+from agentize.model import get_openai_model_settings
 from agentize.prompts.summary import scrape_summarize_tool
 from agentize.prompts.summary import summarize_tool
 
@@ -19,7 +19,7 @@ class OpenAIAgent:
         self.agent = Agent(
             name="agent",
             model=get_openai_model(),
-            model_settings=ModelSettings(temperature=0.0),
+            model_settings=get_openai_model_settings(),
             tools=[scrape_summarize_tool, summarize_tool, scrape_tool],
         )
         self.messages: list[TResponseInputItem] = []

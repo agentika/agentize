@@ -3,7 +3,6 @@ from functools import cache
 
 import chainlit as cl
 from agents import Agent
-from agents import ModelSettings
 from agents import Runner
 from agents import TResponseInputItem
 from agents.mcp import MCPServerStdio
@@ -13,6 +12,7 @@ from dotenv import load_dotenv
 from loguru import logger
 
 from agentize.model import get_openai_model
+from agentize.model import get_openai_model_settings
 from agentize.utils import configure_langfuse
 
 
@@ -22,7 +22,7 @@ class OpenAIAgent:
             name="agent",
             instructions="You are a helpful assistant.",
             model=get_openai_model(),
-            model_settings=ModelSettings(temperature=0.0),
+            model_settings=get_openai_model_settings(),
             mcp_servers=[
                 MCPServerStdio(
                     params=MCPServerStdioParams(
