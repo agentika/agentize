@@ -17,7 +17,7 @@ def get_openai_client() -> AsyncOpenAI:
     openai_proxy_base_url = os.getenv("OPENAI_PROXY_BASE_URL")
     if openai_proxy_api_key:
         set_tracing_disabled(True)
-        return AsyncOpenAI(base_url=openai_proxy_base_url, api_key=chatai_api_key)
+        return AsyncOpenAI(base_url=openai_proxy_base_url, api_key=openai_proxy_api_key)
 
     # Azure OpenAI-comatible endpoints
     azure_api_key = os.getenv("AZURE_OPENAI_API_KEY")
@@ -39,7 +39,5 @@ def get_openai_model() -> OpenAIChatCompletionsModel:
 @cache
 def get_openai_model_settings():
     model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
-    temperature = (
-        None if model == "o3-mini" else float(os.getenv("OPENAI_TEMPERATURE", 0.0))
-    )
+    temperature = None if model == "o3-mini" else float(os.getenv("OPENAI_TEMPERATURE", 0.0))
     return ModelSettings(temperature=temperature)
