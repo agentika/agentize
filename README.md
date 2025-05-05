@@ -33,6 +33,32 @@ uv run chainlit run examples/chatbot_agent.py
 
 type check and format the code
 
-```
+```sh
 make format fix type  
+```
+
+### Environment variables
+
+```sh
+# OpenAI compatible proxy
+# export OPENAI_PROXY_BASE_URL="..."
+# export OPENAI_PROXY_API_KEY="..."
+
+# OpenAI
+# export OPENAI_MODEL="gpt-4o-mini"
+# export OPENAI_API_KEY="sk-..."
+
+# Firecrawl (optional)
+export FIRECRAWL_API_KEY="fc-..."
+
+# Langfuse
+export LANGFUSE_PUBLIC_KEY="pk-..."
+export LANGFUSE_SECRET_KEY="sk-..."
+export LANGFUSE_HOST="..."
+
+# Azure OpenAI
+export AZURE_OPENAI_API_KEY="..."
+export AZURE_OPENAI_ENDPOINT="..."
+export OPENAI_MODEL="gpt-4.1"
+export OPENAI_API_VERSION="...."
 ```
