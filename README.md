@@ -1,11 +1,9 @@
 # agentize
 [![image](https://img.shields.io/pypi/v/agentize.svg)](https://pypi.python.org/pypi/agentize)
 
-Agentize provides out-of-the-box tools for building agents with LLMs.
+Agentize provides out-of-the-box tools for building chatbot agent with LLMs.
 
 ## Usage
-
-## Tools
 
 ### Crawler
 
@@ -29,4 +27,12 @@ Chatbot with MCP client
 
 ```sh
 uv run chainlit run examples/chatbot_agent.py
+```
+
+## Development
+
+type check and format the code
+
+```
+make format fix type  
 ```
