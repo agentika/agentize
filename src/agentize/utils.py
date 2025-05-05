@@ -62,9 +62,16 @@ def configure_langfuse(service_name: str | None = None) -> None:
     os.environ["OTEL_EXPORTER_OTLP_HEADERS"] = f"Authorization=Basic {langfuse_auth}"
 
     try:
+        import nest_asyncio
+    except ImportError:
+        logger.warning("Nest Asyncio is not installed. Install it with `pip install nest-asyncio`.")
+        return
+    nest_asyncio.apply()
+
+    try:
         import logfire
     except ImportError:
-        logger.warning("Logfire is not installed. Skipping Langfuse configuration.")
+        logger.warning("Logfire is not installed. Install it with `pip install logfire`.")
         return
 
     logger.info("Configuring Logfire...")
