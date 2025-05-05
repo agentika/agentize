@@ -26,7 +26,13 @@ uv run chainlit run examples/chatbot_agent.py
 Chatbot with MCP client
 
 ```sh
-uv run chainlit run examples/chatbot_agent.py
+uv run chainlit run examples/mcp_chatbot.py
+```
+
+Summarize chatbot
+
+```sh
+uv run chainlit run examples/summarize_chatbot.py
 ```
 
 ## Development
