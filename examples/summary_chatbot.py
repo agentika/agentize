@@ -13,6 +13,7 @@ from agentize.crawler.firecrawl import map_tool
 from agentize.crawler.firecrawl import scrape_tool
 from agentize.crawler.firecrawl import search_tool
 from agentize.model import get_openai_model
+from agentize.utils import configure_langfuse
 
 
 class OpenAIAgent:
@@ -43,6 +44,7 @@ class OpenAIAgent:
 @cache
 def get_agent() -> OpenAIAgent:
     load_dotenv(find_dotenv(), override=True)
+    configure_langfuse(service_name="summary agent")
     return OpenAIAgent()
 
 
