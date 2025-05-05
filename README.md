@@ -40,7 +40,15 @@ uv run chainlit run examples/summarize_chatbot.py
 type check and format the code
 
 ```sh
-make format fix type  
+make format fix type
+```
+
+pre-commit git hook installation
+
+```sh
+pre-commit install
+# or manually run
+pre-commit run --all-files
 ```
 
 ### Environment variables
