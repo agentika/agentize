@@ -5,7 +5,11 @@ description = ""
 readme = "README.md"
 authors = [{ name = "narumi", email = "toucans-cutouts0f@icloud.com" }]
 requires-python = ">=3.12"
-dependencies = ["firecrawl-py>=2.5.3", "loguru>=0.7.3", "openai-agents>=0.0.13"]
+dependencies = [
+    "firecrawl-py>=2.5.3",
+    "loguru>=0.7.3",
+    "openai-agents>=0.0.13",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -16,6 +20,7 @@ dev = [
     "chainlit>=2.5.5",
     "logfire>=3.14.1",
     "mypy>=1.15.0",
+    "nest-asyncio>=1.6.0",
     "pip>=25.1",
     "pytest>=8.3.3",
     "pytest-cov>=6.0.0",

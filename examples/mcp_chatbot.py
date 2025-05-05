@@ -13,6 +13,7 @@ from dotenv import load_dotenv
 from loguru import logger
 
 from agentize.model import get_openai_model
+from agentize.utils import configure_langfuse
 
 
 class OpenAIAgent:
@@ -61,6 +62,7 @@ class OpenAIAgent:
 @cache
 def get_agent() -> OpenAIAgent:
     load_dotenv(find_dotenv(), override=True)
+    configure_langfuse()
     return OpenAIAgent()
 
 
