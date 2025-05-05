@@ -10,6 +10,8 @@ from loguru import logger
 from openai import AsyncAzureOpenAI
 from openai import AsyncOpenAI
 
+from .utils import langfuse_is_configured
+
 
 @cache
 def get_openai_client() -> AsyncOpenAI:
@@ -18,14 +20,18 @@ def get_openai_client() -> AsyncOpenAI:
     openai_proxy_base_url = os.getenv("OPENAI_PROXY_BASE_URL")
     if openai_proxy_api_key:
         logger.info("Using OpenAI proxy API key")
-        set_tracing_disabled(True)
+
+        if not langfuse_is_configured:
+            set_tracing_disabled(True)
         return AsyncOpenAI(base_url=openai_proxy_base_url, api_key=openai_proxy_api_key)
 
     # Azure OpenAI-comatible endpoints
     azure_api_key = os.getenv("AZURE_OPENAI_API_KEY")
     if azure_api_key:
         logger.info("Using Azure OpenAI API key")
-        set_tracing_disabled(True)
+
+        if not langfuse_is_configured:
+            set_tracing_disabled(True)
         return AsyncAzureOpenAI(api_key=azure_api_key)
 
     logger.info("Using OpenAI API key")
