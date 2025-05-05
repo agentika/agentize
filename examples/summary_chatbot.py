@@ -13,6 +13,7 @@ from agentize.crawler.firecrawl import map_tool
 from agentize.crawler.firecrawl import scrape_tool
 from agentize.crawler.firecrawl import search_tool
 from agentize.model import get_openai_model
+from agentize.model import get_openai_model_settings
 from agentize.utils import configure_langfuse
 
 
@@ -23,7 +24,7 @@ class OpenAIAgent:
             name="main_agent",
             instructions="You are a helpful assistant. Handoff to the summary agent when you need to summarize.",
             model=get_openai_model(),
-            model_settings=ModelSettings(temperature=0.0),
+            model_settings=get_openai_model_settings(),
             tools=[scrape_tool, map_tool, search_tool],
             handoffs=[self.summary_agent],
         )
