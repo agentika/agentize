@@ -2,6 +2,7 @@ reviewers:
   - name: chechiachang
   - name: John-Lin
   - name: narumiruna
+  - name: Copilot
 ignore:
   authors: # Ignore PR if these authors contain PR's author
     - author_name
