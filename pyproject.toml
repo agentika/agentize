@@ -9,6 +9,7 @@ dependencies = [
     "firecrawl-py>=2.5.3",
     "loguru>=0.7.3",
     "openai-agents>=0.0.13",
+    "wisest>=0.14.1",
     "your-telegraph>=0.2.1",
 ]
 
