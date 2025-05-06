@@ -7,7 +7,7 @@ from firecrawl import FirecrawlApp
 
 
 def scrape(url: str) -> str:
-    """Scrape and the content from the given URL.
+    """Scrape the content from the given URL.
 
     Args:
         url (str): The URL to scrape.
