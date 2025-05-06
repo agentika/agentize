@@ -59,7 +59,7 @@ def map(url: str) -> list[str] | None:
     if not map_result.success:
         raise Exception(f"Failed to map URL: {url}, got: {map_result.error}")
 
-    return map_result
+    return map_result.links
 
 
 scrape_tool = function_tool(scrape)
