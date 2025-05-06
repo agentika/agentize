@@ -25,5 +25,9 @@ async def query_rate_history(source: str, target: str, length: int, resolution: 
         resolution=resolution,
         unit=unit,
     )
-    rates = await req.async_do()
+    try:
+        rates = await req.async_do()
+    except Exception as e:
+        logger.error(f"Failed to query rate history: {e}")
+        return f"Error: Unable to retrieve rate history for {source} to {target}."
     return "\n".join([str(rate) for rate in rates])
