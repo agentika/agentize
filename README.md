@@ -5,11 +5,22 @@ Agentize provides out-of-the-box tools for building chatbot agent with LLMs.
 
 ## Usage
 
-### Crawler
+### Tools
 
-- Scrape tool to scrape a URL and get its content.
-- Search tool to perform web searches and optionally retrieve content from the results.
-- Map tool to go from a single url to a map of the entire website.
+#### Firecrawl
+
+- `scrape` tool to scrape a URL and get its content.
+- `search` tool to perform web searches and optionally retrieve content from the results.
+- `map` tool to go from a single url to a map of the entire website.
+
+#### Telegragh
+
+- `publish_page` tool to publish a document to telegraph and get its URL.
+- `publish_page_md` tool to publish a markdown document to telegraph and get its URL.
+
+#### Wise
+
+- `query_rate_history` tool to query the rate history of a currency.
 
 ### Agents
 
