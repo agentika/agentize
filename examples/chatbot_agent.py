@@ -7,11 +7,11 @@ from agents import TResponseInputItem
 from dotenv import find_dotenv
 from dotenv import load_dotenv
 
-from agentize.crawler.firecrawl import scrape_tool
 from agentize.model import get_openai_model
 from agentize.model import get_openai_model_settings
 from agentize.prompts.summary import scrape_summarize_tool
 from agentize.prompts.summary import summarize_tool
+from agentize.tools.firecrawl import scrape_tool
 
 
 class OpenAIAgent:
