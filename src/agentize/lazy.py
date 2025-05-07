@@ -95,30 +95,3 @@ def lazy_run_sync(
     if output_type is None:
         return result.final_output
     return result.final_output_as(output_type)
-
-
-async def send(input: str, instructions: str | None = None) -> str:
-    result = await Runner.run(
-        starting_agent=Agent(
-            "lazy_send_agent",
-            instructions,
-            model=get_openai_model(),
-            model_settings=get_openai_model_settings(),
-        ),
-        input=input,
-    )
-    return result.final_output
-
-
-async def parse(input: str, output_type: type[T], instructions: str | None = None) -> T:
-    result = await Runner.run(
-        starting_agent=Agent(
-            "lazy_parse_agent",
-            instructions,
-            model=get_openai_model(),
-            model_settings=get_openai_model_settings(),
-            output_type=output_type,
-        ),
-        input=input,
-    )
-    return result.final_output
