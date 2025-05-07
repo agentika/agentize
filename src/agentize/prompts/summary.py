@@ -4,7 +4,7 @@ from agents import function_tool
 from pydantic import BaseModel
 
 from ..crawler import scrape
-from ..lazy import parse
+from ..lazy import lazy_run
 
 INSTRUCTIONS = """
 Please generate the following in {lang} based on the provided content:
@@ -62,7 +62,7 @@ async def summarize(text: str, lang: str, length: int = 200) -> Summary:
         lang (str): The language to use for the summary.
         length (int): The maximum length of the summary in words.
     """
-    return await parse(
+    return await lazy_run(
         input=text,
         instructions=INSTRUCTIONS.format(lang=lang, length=length),
         output_type=Summary,

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from ..lazy import send
+from ..lazy import lazy_run
 
 # https://cookbook.openai.com/examples/gpt4-1_prompting_guide
 INSTRUCTIONS = """
@@ -20,7 +20,7 @@ Return only the improved prompt, with enhanced structure and examples if needed.
 
 
 async def improve_prompt(prompt: str, lang: str = "English") -> str:
-    return await send(
+    return await lazy_run(
         input=prompt,
         instructions=INSTRUCTIONS.format(lang=lang),
     )
