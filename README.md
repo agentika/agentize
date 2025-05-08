@@ -5,6 +5,15 @@ Agentize provides out-of-the-box tools for building chatbot agent with LLMs.
 
 ## Usage
 
+### Installation
+
+```sh
+pip install agentize
+
+# If you want to use langfuse
+pip install agentize[langfuse]
+```
+
 ### Tools
 
 #### Firecrawl

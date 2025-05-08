@@ -13,6 +13,12 @@ dependencies = [
     "your-telegraph>=0.2.1",
 ]
 
+[project.optional-dependencies]
+langfuse = [
+    "logfire>=3.14.1",
+    "nest-asyncio>=1.6.0",
+]
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
