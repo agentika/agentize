@@ -11,8 +11,8 @@ from agentize.agents.summary import get_summary_agent
 from agentize.model import get_openai_model
 from agentize.model import get_openai_model_settings
 from agentize.tools.firecrawl import map_tool
-from agentize.tools.firecrawl import scrape_tool
 from agentize.tools.firecrawl import search_tool
+from agentize.tools.markitdown import scrape_tool
 from agentize.utils import configure_langfuse
 
 
