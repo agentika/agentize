@@ -3,7 +3,10 @@ from __future__ import annotations
 import requests
 import ua_generator
 from agents import function_tool
+from loguru import logger
 from markitdown import MarkItDown
+
+from .firecrawl import fc_scrape
 
 
 def scrape(url: str) -> str:
@@ -19,9 +22,15 @@ def scrape(url: str) -> str:
     )
     requests_session = requests.Session()
     requests_session.headers.update(user_agent.headers.get())
-    markitdown = MarkItDown(enable_plugins=False, requests_session=requests_session)
-    result = markitdown.convert_url(url)
-    return result.markdown
+    md = MarkItDown(enable_plugins=False, requests_session=requests_session)
+    try:
+        result = md.convert_url(url)
+        result_md = result.markdown
+    except requests.exceptions.HTTPError:
+        logger.info(f"Fallback: failed to scrape {url} with MarkItDown, using fc_scrape")
+        result_md = fc_scrape(url)
+
+    return result_md
 
 
 scrape_tool = function_tool(scrape)
