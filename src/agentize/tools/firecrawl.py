@@ -6,7 +6,7 @@ from agents import function_tool
 from firecrawl import FirecrawlApp
 
 
-def fc_scrape(url: str) -> str:
+def firecrawl_scrape(url: str) -> str:
     """Scrape the content from the given URL using the Firecrawl API. Slower than the scrape_tool.
 
     Args:
@@ -62,6 +62,6 @@ def map(url: str) -> list[str] | None:
     return map_result.links
 
 
-fc_scrape_tool = function_tool(fc_scrape)
+firecrawl_scrape_tool = function_tool(firecrawl_scrape)
 search_tool = function_tool(search)
 map_tool = function_tool(map)

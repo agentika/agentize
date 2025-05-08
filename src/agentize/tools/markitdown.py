@@ -6,10 +6,10 @@ from agents import function_tool
 from loguru import logger
 from markitdown import MarkItDown
 
-from .firecrawl import fc_scrape
+from .firecrawl import firecrawl_scrape
 
 
-def scrape(url: str) -> str:
+def markitdown_scrape(url: str) -> str:
     """Scrape the content from the given URL. This is faster than the fc_scrape_tool.
 
     Args:
@@ -27,10 +27,10 @@ def scrape(url: str) -> str:
         result = md.convert_url(url)
         result_md = result.markdown
     except requests.exceptions.HTTPError:
-        logger.info(f"Fallback: failed to scrape {url} with MarkItDown, using fc_scrape")
-        result_md = fc_scrape(url)
+        logger.info(f"Fallback: failed to scrape {url} with MarkItDown, using firecrawl_scrape")
+        result_md = firecrawl_scrape(url)
 
     return result_md
 
 
-scrape_tool = function_tool(scrape)
+markitdown_scrape_tool = function_tool(markitdown_scrape)
