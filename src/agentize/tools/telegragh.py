@@ -1,3 +1,5 @@
+from typing import Any
+
 from agents import function_tool
 from ytelegraph import TelegraphAPI
 
@@ -18,12 +20,12 @@ def publish_page_md(title: str, content: str) -> str:
 
 
 @function_tool
-def publish_page(title: str, content: str) -> str:
+def publish_page(title: str, content: list[dict[str, Any]]) -> str:
     """Publish a Telegraph page with DOM-based format content.
 
     Args:
         title (str): The title of the page.
-        content (str): The content of the page in Telegraph node format.
+        content (list[dict[str, Any]]): The content of the page in Telegraph node format.
 
     Returns:
         url (str): The URL of the published page.
