@@ -3,7 +3,7 @@ from ytelegraph import TelegraphAPI
 
 
 @function_tool
-def publish_page_md(title: str, content: str) -> str:
+def publish_page(title: str, content: str) -> str:
     """Publish a new Telegraph page with Markdown content.
 
     Args:
