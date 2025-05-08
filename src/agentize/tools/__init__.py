@@ -4,6 +4,8 @@ from .firecrawl import scrape
 from .firecrawl import scrape_tool
 from .firecrawl import search
 from .firecrawl import search_tool
+from .flights import get_flights
+from .flights import get_flights_tool
 from .telegragh import publish_page
 from .telegragh import publish_page_md
 from .wise import query_rate_history
