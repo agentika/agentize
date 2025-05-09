@@ -2,12 +2,16 @@ from __future__ import annotations
 
 import os
 from functools import cache
+from typing import Literal
 
+from agents import Model
 from agents import ModelSettings
 from agents import OpenAIChatCompletionsModel
+from agents import OpenAIResponsesModel
 from loguru import logger
 from openai import AsyncAzureOpenAI
 from openai import AsyncOpenAI
+from openai.types import ChatModel
 
 
 @cache
@@ -30,10 +34,22 @@ def get_openai_client() -> AsyncOpenAI:
 
 
 @cache
-def get_openai_model() -> OpenAIChatCompletionsModel:
-    model_name = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
-    client = get_openai_client()
-    return OpenAIChatCompletionsModel(model_name, openai_client=client)
+def get_openai_model(
+    model: ChatModel | str | None = None,
+    api_type: Literal["responses", "chat_completions"] = "responses",
+) -> Model:
+    if model is None:
+        model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+
+    openai_client = get_openai_client()
+
+    match api_type:
+        case "responses":
+            return OpenAIResponsesModel(model, openai_client=openai_client)
+        case "chat_completions":
+            return OpenAIChatCompletionsModel(model, openai_client=openai_client)
+        case _:
+            raise ValueError(f"Invalid API type: {api_type}. Use 'responses' or 'chat_completions'.")
 
 
 @cache
