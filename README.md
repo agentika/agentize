@@ -16,15 +16,19 @@ pip install agentize[langfuse]
 
 ### Tools
 
+
+#### MarkItDown
+
+- `markitdown_scrape` tool to scrape a URL and get its content.
+
 #### Firecrawl
 
-- `scrape` tool to scrape a URL and get its content.
+- `firecrawl_scrape` tool to scrape a URL and get its content.
 - `search` tool to perform web searches and optionally retrieve content from the results.
 - `map` tool to go from a single url to a map of the entire website.
 
 #### Telegragh
 
-- `publish_page` tool to publish a document to telegraph and get its URL.
 - `publish_page_md` tool to publish a markdown document to telegraph and get its URL.
 
 #### Wise

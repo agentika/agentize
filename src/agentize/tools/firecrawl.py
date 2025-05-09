@@ -7,7 +7,7 @@ from firecrawl import FirecrawlApp
 
 
 def firecrawl_scrape(url: str) -> str:
-    """Scrape the content from the given URL using the Firecrawl API. Slower than the scrape_tool.
+    """Scrape the content from the given URL using the Firecrawl API. Slower than the markitdown_scrape_tool.
 
     Args:
         url (str): The URL to scrape.
