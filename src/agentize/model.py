@@ -25,9 +25,10 @@ def get_openai_client() -> AsyncOpenAI:
 
     # Azure OpenAI-comatible endpoints
     azure_api_key = os.getenv("AZURE_OPENAI_API_KEY")
+    azure_openai_api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2024-12-01-preview")
     if azure_api_key:
         logger.info("Using Azure OpenAI API key")
-        return AsyncAzureOpenAI(api_key=azure_api_key)
+        return AsyncAzureOpenAI(api_key=azure_api_key, api_version=azure_openai_api_version)
 
     logger.info("Using OpenAI API key")
     return AsyncOpenAI()
