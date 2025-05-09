@@ -9,7 +9,6 @@ from dotenv import load_dotenv
 
 from agentize.agents.summary import get_summary_agent
 from agentize.model import get_openai_model
-from agentize.model import get_openai_model_settings
 from agentize.tools.firecrawl import map_tool
 from agentize.tools.firecrawl import search_tool
 from agentize.tools.markitdown import markitdown_scrape_tool
@@ -18,12 +17,14 @@ from agentize.utils import configure_langfuse
 
 class OpenAIAgent:
     def __init__(self, lang: str = "台灣中文", length: int = 200) -> None:
-        self.summary_agent = get_summary_agent(lang=lang, length=length)
+        self.summary_agent = get_summary_agent(
+            lang=lang,
+            length=length,
+        )
         self.main_agent = Agent(
             name="main_agent",
-            instructions="You are a helpful assistant. Handoff to the summary agent when you need to summarize.",
             model=get_openai_model(),
-            model_settings=get_openai_model_settings(),
+            instructions="You are a helpful assistant. Handoff to the summary agent when you need to summarize.",
             tools=[markitdown_scrape_tool, map_tool, search_tool],
             handoffs=[self.summary_agent],
         )

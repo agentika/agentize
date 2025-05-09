@@ -8,7 +8,6 @@ from dotenv import find_dotenv
 from dotenv import load_dotenv
 
 from agentize.model import get_openai_model
-from agentize.model import get_openai_model_settings
 from agentize.prompts.summary import scrape_summarize_tool
 from agentize.prompts.summary import summarize_tool
 from agentize.tools.markitdown import markitdown_scrape_tool
@@ -19,7 +18,6 @@ class OpenAIAgent:
         self.agent = Agent(
             name="agent",
             model=get_openai_model(),
-            model_settings=get_openai_model_settings(),
             tools=[scrape_summarize_tool, summarize_tool, markitdown_scrape_tool],
         )
         self.messages: list[TResponseInputItem] = []
