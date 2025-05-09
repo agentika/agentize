@@ -98,5 +98,6 @@ export LANGFUSE_HOST="..."
 export AZURE_OPENAI_API_KEY="..."
 export AZURE_OPENAI_ENDPOINT="..."
 export OPENAI_MODEL="gpt-4.1"
-export OPENAI_API_VERSION="...."
+# see https://learn.microsoft.com/azure/ai-services/openai/api-version-deprecation for more details
+export AZURE_OPENAI_API_VERSION="2025-03-01-preview"
 ```
