@@ -6,7 +6,6 @@ from agents import ModelSettings
 from agents import Runner
 
 from .model import get_openai_model
-from .model import get_openai_model_settings
 
 T = TypeVar("T")
 
@@ -19,7 +18,7 @@ def _create_agent(
     output_type: type[T] | None = None,
 ) -> Agent:
     model = model or get_openai_model()
-    model_settings = model_settings or get_openai_model_settings()
+    model_settings = model_settings or ModelSettings()
     return Agent(
         name=name,
         instructions=instructions,
@@ -47,6 +46,7 @@ async def lazy_run(
         model_settings (ModelSettings | None): The settings for the model.
         output_type (type[T] | None): The type of output to return.
     """
+    model_settings = model_settings or ModelSettings()
     result = await Runner.run(
         starting_agent=_create_agent(
             instructions=instructions,
@@ -81,6 +81,7 @@ def lazy_run_sync(
         model_settings (ModelSettings | None): The settings for the model.
         output_type (type[T] | None): The type of output to return.
     """
+    model_settings = model_settings or ModelSettings()
     result = Runner.run_sync(
         starting_agent=_create_agent(
             instructions=instructions,

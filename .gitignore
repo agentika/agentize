@@ -135,3 +135,6 @@ dmypy.json
 # VS Code
 .vscode/
 .chainlit/
+
+chainlit.md
+examples/chainlit.md
