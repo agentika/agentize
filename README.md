@@ -41,22 +41,22 @@ pip install agentize[langfuse]
 
 ## Examples
 
-Chatbot agent
+Chatbot agent. Summarize chatbot. The `-w` flag tells Chainlit to enable auto-reloading, so you don’t need to restart the server every time you make changes to your application.
 
 ```sh
-uv run chainlit run examples/chatbot_agent.py
+uv run chainlit run examples/chatbot_agent.py -w
 ```
 
-Chatbot with MCP client
+Chatbot with MCP client.
 
 ```sh
-uv run chainlit run examples/mcp_chatbot.py
+uv run chainlit run examples/mcp_chatbot.py -w
 ```
 
-Summarize chatbot
+Summarize chatbot.
 
 ```sh
-uv run chainlit run examples/summarize_chatbot.py
+uv run chainlit run examples/summarize_chatbot.py -w
 ```
 
 ## Development
