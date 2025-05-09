@@ -10,7 +10,7 @@ from .firecrawl import firecrawl_scrape
 
 
 def markitdown_scrape(url: str) -> str:
-    """Scrape the content from the given URL. This is faster than the fc_scrape_tool.
+    """Scrape the content from the given URL. This is faster than the firecrawl_scrape_tool.
 
     Args:
         url (str): The URL to scrape.
