@@ -6,5 +6,5 @@ from .firecrawl import search
 from .firecrawl import search_tool
 from .markitdown import markitdown_scrape
 from .markitdown import markitdown_scrape_tool
-from .telegragh import publish_page
+from .telegraph import publish_page
 from .wise import query_rate_history

@@ -27,7 +27,7 @@ pip install agentize[langfuse]
 - `search` tool to perform web searches and optionally retrieve content from the results.
 - `map` tool to go from a single url to a map of the entire website.
 
-#### Telegragh
+#### Telegraph
 
 - `publish_page_md` tool to publish a markdown document to telegraph and get its URL.
 
