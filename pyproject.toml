@@ -6,6 +6,7 @@ readme = "README.md"
 authors = [{ name = "narumi", email = "toucans-cutouts0f@icloud.com" }]
 requires-python = ">=3.12"
 dependencies = [
+    "duckduckgo-search>=8.0.1",
     "firecrawl-py>=2.5.3",
     "loguru>=0.7.3",
     "markitdown>=0.1.1",
