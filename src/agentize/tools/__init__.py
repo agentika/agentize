@@ -1,3 +1,4 @@
+from .duckduckgo import duckduckgo_search
 from .firecrawl import firecrawl_scrape
 from .firecrawl import firecrawl_scrape_tool
 from .firecrawl import map
