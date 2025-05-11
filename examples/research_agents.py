@@ -13,6 +13,7 @@ from agentize.agents.planner import get_planner_agent
 from agentize.agents.search import get_search_agent
 from agentize.agents.writer import ReportData
 from agentize.agents.writer import get_writer_agent
+from agentize.model import get_openai_model
 from agentize.utils import configure_langfuse
 
 
@@ -46,7 +47,7 @@ class ResearchManager:
 
     async def _plan_searches(self, query: str) -> WebSearchPlan:
         result = await Runner.run(
-            get_planner_agent(),
+            get_planner_agent(model=get_openai_model("o3-mini", api_type="chat_completions")),
             f"Query: {query}",
         )
         return result.final_output_as(WebSearchPlan)
@@ -76,7 +77,10 @@ class ResearchManager:
         input = f"Original query: {query}\nSummarized search results: {search_results}"
         logger.info(f"Search plan: {input.replace('\n', '; ')}")
         result = await Runner.run(
-            get_writer_agent(lang="台灣繁體中文"),
+            get_writer_agent(
+                lang="台灣繁體中文",
+                model=get_openai_model("o3-mini", api_type="chat_completions"),
+            ),
             input,
         )
         return result.final_output_as(ReportData)
