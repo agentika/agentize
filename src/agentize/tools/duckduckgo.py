@@ -30,4 +30,4 @@ def duckduckgo_news(query: str) -> str:
         The latest news from DuckDuckGo.
     """
     ddgs = DDGS()
-    return json.dumps(ddgs.news(keywords=query, max_results=5))
+    return json.dumps(ddgs.news(keywords=query, max_results=5), indent=2)
