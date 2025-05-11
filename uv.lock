@@ -8,7 +8,7 @@ resolution-markers = [
 
 [[package]]
 name = "agentize"
-version = "0.0.16"
+version = "0.0.17"
 source = { editable = "." }
 dependencies = [
     { name = "duckduckgo-search" },
