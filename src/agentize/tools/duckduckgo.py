@@ -7,7 +7,7 @@ from duckduckgo_search import DDGS
 
 
 @function_tool
-def duckduckgo_search(query: str, max_results: int = 5) -> str:
+def duckduckgo_search(query: str, max_results: int) -> str:
     """Perform a web search. Use this function to search DuckDuckGo for a query.
 
     Args:
@@ -22,7 +22,7 @@ def duckduckgo_search(query: str, max_results: int = 5) -> str:
 
 
 @function_tool
-def duckduckgo_news(query: str, max_results: int = 5) -> str:
+def duckduckgo_news(query: str, max_results: int) -> str:
     """Use this function to get the latest news from DuckDuckGo.
     Args:
         query(str): The query to search for.

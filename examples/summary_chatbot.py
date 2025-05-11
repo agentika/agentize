@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 
 from agentize.agents.summary import get_summary_agent
 from agentize.model import get_openai_model
+from agentize.tools.duckduckgo import duckduckgo_search
 from agentize.tools.firecrawl import map_tool
-from agentize.tools.firecrawl import search_tool
 from agentize.tools.markitdown import markitdown_scrape_tool
 from agentize.utils import configure_langfuse
 
@@ -25,7 +25,7 @@ class OpenAIAgent:
             name="main_agent",
             model=get_openai_model(),
             instructions="You are a helpful assistant. Handoff to the summary agent when you need to summarize.",
-            tools=[markitdown_scrape_tool, map_tool, search_tool],
+            tools=[markitdown_scrape_tool, map_tool, duckduckgo_search],
             handoffs=[self.summary_agent],
         )
         self.messages: list[TResponseInputItem] = []
