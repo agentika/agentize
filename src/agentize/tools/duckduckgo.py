@@ -12,8 +12,9 @@ def duckduckgo_search(query: str) -> str:
 
     Args:
         query (str): The query to search for.
+
     Returns:
-        List of dictionaries with search results.
+        The result from DuckDuckGo.
     """
     ddgs = DDGS()
     return json.dumps(ddgs.text(keywords=query, max_results=5), indent=2)
