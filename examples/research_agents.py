@@ -8,11 +8,11 @@ from dotenv import find_dotenv
 from dotenv import load_dotenv
 from loguru import logger
 
-from agentize.agents.planner import WebSearchPlan
-from agentize.agents.planner import get_planner_agent
-from agentize.agents.search import get_search_agent
-from agentize.agents.writer import ReportData
-from agentize.agents.writer import get_writer_agent
+from agentize.agents import ReportData
+from agentize.agents import WebSearchPlan
+from agentize.agents import get_planner_agent
+from agentize.agents import get_search_agent
+from agentize.agents import get_writer_agent
 from agentize.model import get_openai_model
 from agentize.utils import configure_langfuse
 
@@ -55,10 +55,10 @@ class ResearchManager:
     async def _perform_searches(self, search_plan: WebSearchPlan) -> list[str]:
         search_results = []
         logger.info(f"Got {len(search_plan.searches)} Web search plans.")
-        top_five = search_plan.searches[:5]
+        search_terms_top_5 = search_plan.searches[:5]
 
         tasks = []
-        for item in top_five:
+        for item in search_terms_top_5:
             search_term = f"Search term: {item.query}; Reason for searching: {item.reason}"
             logger.info(f"Search term: {search_term}")
             task = Runner.run(get_search_agent(), search_term)
