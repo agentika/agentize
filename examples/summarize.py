@@ -3,7 +3,6 @@ import asyncio
 from dotenv import find_dotenv
 from dotenv import load_dotenv
 
-from agentize.prompts import scrape_summarize
 from agentize.prompts import summarize
 
 
@@ -16,9 +15,6 @@ def main() -> None:
     )
     summary = asyncio.run(summarize(text, lang="台灣中文", length=1_000))
     print(summary)
-
-    url_summary = asyncio.run(scrape_summarize("https://firecrawl.dev", lang="台灣中文", length=1_000))
-    print(url_summary)
 
 
 if __name__ == "__main__":

@@ -3,7 +3,6 @@ from __future__ import annotations
 from agents import function_tool
 from pydantic import BaseModel
 
-from ..crawler import scrape
 from ..lazy import lazy_run
 
 INSTRUCTIONS = """
@@ -69,20 +68,4 @@ async def summarize(text: str, lang: str, length: int = 200) -> Summary:
     )
 
 
-async def scrape_summarize(url: str, lang: str, length: int = 200) -> Summary:
-    """Scrape and summarize the content from the given URL in the specified language and length.
-
-    Args:
-        url (str): The url to scrape.
-        lang (str): The language to use for the summary.
-        length (int): The maximum length of the summary in words.
-    """
-    return await summarize(
-        text=scrape(url),
-        lang=lang,
-        length=length,
-    )
-
-
 summarize_tool = function_tool(summarize)
-scrape_summarize_tool = function_tool(scrape_summarize)
