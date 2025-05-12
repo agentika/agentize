@@ -7,7 +7,7 @@ from agents import TResponseInputItem
 from dotenv import find_dotenv
 from dotenv import load_dotenv
 
-from agentize.agents.summary import get_summary_agent
+from agentize.agents import get_summary_agent
 from agentize.model import get_openai_model
 from agentize.tools.duckduckgo import duckduckgo_search
 from agentize.tools.firecrawl import map_tool
