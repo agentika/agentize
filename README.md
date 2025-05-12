@@ -93,6 +93,7 @@ export FIRECRAWL_API_KEY="fc-..."
 export AWS_ACCESS_KEY_ID="..."
 export AWS_SECRET_ACCESS_KEY=".."
 export AWS_ENDPOINT_URL_S3="..."
+export AWS_BUCKET_NAME="..."
 
 # Langfuse
 export LANGFUSE_PUBLIC_KEY="pk-..."
