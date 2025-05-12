@@ -89,6 +89,12 @@ pre-commit run --all-files
 # Firecrawl (optional)
 export FIRECRAWL_API_KEY="fc-..."
 
+# Object Storage (optional), S3 compatible Storage
+export AWS_ACCESS_KEY_ID="..."
+export AWS_SECRET_ACCESS_KEY=".."
+export AWS_ENDPOINT_URL_S3="..."
+export AWS_BUCKET_NAME="..."
+
 # Langfuse
 export LANGFUSE_PUBLIC_KEY="pk-..."
 export LANGFUSE_SECRET_KEY="sk-..."
