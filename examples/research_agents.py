@@ -2,18 +2,22 @@ import asyncio
 from functools import cache
 
 import chainlit as cl
+from agents import ModelSettings
 from agents import Runner
 from agents import trace
 from dotenv import find_dotenv
 from dotenv import load_dotenv
 from loguru import logger
 
-from agentize.agents import ReportData
-from agentize.agents import WebSearchPlan
-from agentize.agents import get_planner_agent
-from agentize.agents import get_search_agent
-from agentize.agents import get_writer_agent
+from agentize.agents import get_dummy_agent
 from agentize.model import get_openai_model
+from agentize.prompts.research import SEARCH_INST
+from agentize.prompts.research import SEARCH_PLANNER_INST
+from agentize.prompts.research import WRITER_INST
+from agentize.prompts.research import ReportData
+from agentize.prompts.research import WebSearchPlan
+from agentize.tools.boto3 import upload_markdown_tool
+from agentize.tools.duckduckgo import duckduckgo_search
 from agentize.utils import configure_langfuse
 
 
@@ -46,22 +50,31 @@ class ResearchManager:
         return self.final_report
 
     async def _plan_searches(self, query: str) -> WebSearchPlan:
-        result = await Runner.run(
-            get_planner_agent(model=get_openai_model("o3-mini", api_type="chat_completions")),
-            f"Query: {query}",
+        planner_agent = get_dummy_agent().clone(
+            name="planner_agent",
+            instructions=SEARCH_PLANNER_INST,
+            model=get_openai_model("o3-mini", api_type="chat_completions"),
+            output_type=WebSearchPlan,
         )
+
+        result = await Runner.run(planner_agent, f"Query: {query}")
         return result.final_output_as(WebSearchPlan)
 
     async def _perform_searches(self, search_plan: WebSearchPlan) -> list[str]:
-        search_results = []
         logger.info(f"Got {len(search_plan.searches)} Web search plans.")
         search_terms_top_5 = search_plan.searches[:5]
-
+        search_agent = get_dummy_agent().clone(
+            name="search_agent",
+            instructions=SEARCH_INST,
+            tools=[duckduckgo_search],
+            model_settings=ModelSettings(tool_choice="required"),
+        )
+        search_results = []
         tasks = []
         for item in search_terms_top_5:
             search_term = f"Search term: {item.query}; Reason for searching: {item.reason}"
             logger.info(f"Search term: {search_term}")
-            task = Runner.run(get_search_agent(), search_term)
+            task = Runner.run(search_agent, search_term)
             tasks.append(task)
 
         results = await asyncio.gather(*tasks)
@@ -76,13 +89,15 @@ class ResearchManager:
     async def _write_report(self, query: str, search_results: list[str]) -> ReportData:
         input = f"Original query: {query}\nSummarized search results: {search_results}"
         logger.info(f"Search plan: {input.replace('\n', '; ')}")
-        result = await Runner.run(
-            get_writer_agent(
-                lang="台灣繁體中文",
-                model=get_openai_model("o3-mini", api_type="chat_completions"),
-            ),
-            input,
+        writer_agent = get_dummy_agent().clone(
+            name="writer_agent",
+            instructions=WRITER_INST.format(lang="台灣繁體中文", length=1000),
+            model=get_openai_model("o3-mini", api_type="chat_completions"),
+            tools=[upload_markdown_tool],
+            model_settings=ModelSettings(tool_choice="required"),
+            output_type=ReportData,
         )
+        result = await Runner.run(writer_agent, input)
         return result.final_output_as(ReportData)
 
 

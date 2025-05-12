@@ -3,23 +3,17 @@ from agents import Model
 from agents import ModelSettings
 
 from ..model import get_openai_model
-from ..prompts.summary import INSTRUCTIONS
-from ..prompts.summary import Summary
 
 
-def get_summary_agent(
-    lang: str,
-    length: int = 200,
+def get_dummy_agent(
     model: Model | None = None,
     model_settings: ModelSettings | None = None,
 ) -> Agent:
-    """Get the summary agent."""
     if model is None:
         model = get_openai_model()
 
     return Agent(
-        name="summary_agent",
-        instructions=INSTRUCTIONS.format(lang=lang, length=length),
+        name="dummy_agent",
+        instructions="You are a dummy agent. Do nothing.",
         model=model,
-        output_type=Summary,
     )
