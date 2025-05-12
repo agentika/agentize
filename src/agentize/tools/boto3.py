@@ -4,6 +4,7 @@ import json
 import logging
 import os
 import time
+from datetime import datetime
 from io import BytesIO
 
 import boto3
@@ -29,11 +30,10 @@ HTML_TEMPLATE = """<!doctype html>
 """
 
 
-def _upload_object(title: str, content: str, object_name: str) -> bool:
+def _upload_object(content: str, object_name: str) -> bool:
     """Upload a file to an S3 bucket.
 
     Args:
-        title (str): The title of the HTML page.
         content(str) : The content to upload.
         object_name (str): S3 object name. If not specified then unix timestamp is used.
 
@@ -47,8 +47,12 @@ def _upload_object(title: str, content: str, object_name: str) -> bool:
 
     # If S3 object_name was not specified, use unix timestamp
     if object_name is None or object_name == "":
+        # Use the current unix timestamp as the object name remove floa<ting point
         timestamp = int(time.time())
+        # Convert the timestamp to a string
         object_name = str(timestamp)
+    else:
+        object_name = f"{object_name}-{datetime.now().strftime('%m-%d')}"
 
     s3_client = boto3.client("s3")
     try:
@@ -71,7 +75,7 @@ def _upload_object(title: str, content: str, object_name: str) -> bool:
 def upload_html(title: str, content: str, object_name: str) -> bool:
     """Upload HTML content to an S3 bucket.
     Args:
-        title (str): The title of the HTML page.
+        title (str): The title of the page.
         content(str) : The content to upload.
         object_name (str): S3 object name. If not specified then unix timestamp is used.
 
@@ -81,7 +85,7 @@ def upload_html(title: str, content: str, object_name: str) -> bool:
 
     safe_md = json.dumps(content)
     html = HTML_TEMPLATE.format(title=title, md=safe_md)
-    return _upload_object(title, html, object_name)
+    return _upload_object(html, object_name)
 
 
 upload_html_tool = function_tool(upload_html)
