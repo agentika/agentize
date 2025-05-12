@@ -72,11 +72,11 @@ def _upload_object(content: str, object_name: str) -> bool:
     return True
 
 
-def upload_html(title: str, content: str, object_name: str) -> bool:
-    """Upload HTML content to an S3 bucket.
+def upload_markdown(title: str, content: str, object_name: str) -> bool:
+    """Upload markdown file to an S3 bucket.
     Args:
         title (str): The title of the page.
-        content(str) : The content to upload.
+        content(str) : The markdown content to upload.
         object_name (str): S3 object name. If not specified then unix timestamp is used.
 
     Returns:
@@ -84,8 +84,9 @@ def upload_html(title: str, content: str, object_name: str) -> bool:
     """
 
     safe_md = json.dumps(content)
+    # convert markdown to html
     html = HTML_TEMPLATE.format(title=title, md=safe_md)
     return _upload_object(html, object_name)
 
 
-upload_html_tool = function_tool(upload_html)
+upload_markdown_tool = function_tool(upload_markdown)
