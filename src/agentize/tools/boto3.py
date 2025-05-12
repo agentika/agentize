@@ -14,8 +14,8 @@ HTML_TEMPLATE = """<!doctype html>
 <html>
 <head>
   <meta charset="utf-8"/>
-  <title>Marked in the browser</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown.min.css">
+  <title>{title}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown-light.min.css">
 </head>
 <body>
   <div class="markdown-body" id="content"></div>
@@ -29,10 +29,11 @@ HTML_TEMPLATE = """<!doctype html>
 """
 
 
-def upload_object(content: str, object_name: str) -> bool:
+def _upload_object(title: str, content: str, object_name: str) -> bool:
     """Upload a file to an S3 bucket.
 
     Args:
+        title (str): The title of the HTML page.
         content(str) : The content to upload.
         object_name (str): S3 object name. If not specified then unix timestamp is used.
 
@@ -56,6 +57,7 @@ def upload_object(content: str, object_name: str) -> bool:
             Fileobj=file_obj_bytes,
             Bucket=bucket,
             Key=object_name,
+            # Content type is set to text/html
             ExtraArgs={
                 "ContentType": "text/html; charset=utf-8",
             },
@@ -66,9 +68,10 @@ def upload_object(content: str, object_name: str) -> bool:
     return True
 
 
-def upload_html(content: str, object_name: str) -> bool:
+def upload_html(title: str, content: str, object_name: str) -> bool:
     """Upload HTML content to an S3 bucket.
     Args:
+        title (str): The title of the HTML page.
         content(str) : The content to upload.
         object_name (str): S3 object name. If not specified then unix timestamp is used.
 
@@ -77,9 +80,8 @@ def upload_html(content: str, object_name: str) -> bool:
     """
 
     safe_md = json.dumps(content)
-    html = HTML_TEMPLATE.format(md=safe_md)
-    return upload_object(html, object_name)
+    html = HTML_TEMPLATE.format(title=title, md=safe_md)
+    return _upload_object(title, html, object_name)
 
 
-upload_object_tool = function_tool(upload_object)
 upload_html_tool = function_tool(upload_html)

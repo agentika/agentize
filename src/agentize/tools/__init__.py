@@ -1,7 +1,5 @@
 from .boto3 import upload_html
 from .boto3 import upload_html_tool
-from .boto3 import upload_object
-from .boto3 import upload_object_tool
 from .duckduckgo import duckduckgo_search
 from .firecrawl import firecrawl_scrape
 from .firecrawl import firecrawl_scrape_tool
