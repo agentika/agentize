@@ -8,11 +8,11 @@ from dotenv import find_dotenv
 from dotenv import load_dotenv
 from loguru import logger
 
+from agentize.agents import ReportData
+from agentize.agents import WebSearchPlan
 from agentize.agents import get_planner_agent
 from agentize.agents import get_search_agent
 from agentize.agents import get_writer_agent
-from agentize.agents.planner_agent import WebSearchPlan
-from agentize.agents.writer_agent import ReportData
 from agentize.model import get_openai_model
 from agentize.utils import configure_langfuse
 
