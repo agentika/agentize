@@ -10,4 +10,5 @@ from .firecrawl import search_tool
 from .markitdown import markitdown_scrape
 from .markitdown import markitdown_scrape_tool
 from .telegraph import publish_page
+from .tripplus import search_award
 from .wise import query_rate_history
