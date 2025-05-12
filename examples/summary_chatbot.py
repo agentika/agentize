@@ -7,8 +7,9 @@ from agents import TResponseInputItem
 from dotenv import find_dotenv
 from dotenv import load_dotenv
 
-from agentize.agents import get_summary_agent
+from agentize.agents import get_dummy_agent
 from agentize.model import get_openai_model
+from agentize.prompts.summary import INSTRUCTIONS
 from agentize.tools.duckduckgo import duckduckgo_search
 from agentize.tools.firecrawl import map_tool
 from agentize.tools.markitdown import markitdown_scrape_tool
@@ -17,9 +18,9 @@ from agentize.utils import configure_langfuse
 
 class OpenAIAgent:
     def __init__(self, lang: str = "台灣中文", length: int = 200) -> None:
-        self.summary_agent = get_summary_agent(
-            lang=lang,
-            length=length,
+        self.summary_agent = get_dummy_agent().clone(
+            name="summary_agent",
+            instructions=INSTRUCTIONS.format(lang=lang, length=length),
             model=get_openai_model(model="o3-mini", api_type="chat_completions"),
         )
         self.main_agent = Agent(
