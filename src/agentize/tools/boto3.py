@@ -1,38 +1,37 @@
 from __future__ import annotations
 
-import io
 import logging
 import time
+from io import BytesIO
 
 import boto3
 from agents import function_tool
 from botocore.exceptions import ClientError
 
 
-@function_tool
 def upload_object(content: str, bucket: str, object_name: str) -> bool:
     """Upload a file to an S3 bucket
-    Args:
 
+    Args:
         content(str) : The content to upload.
         bucket (str): Bucket to upload to.
         object_name (str): S3 object name. If not specified then SHA256 of the content is used.
+
     Returns:
         bool: True if file was uploaded, else False
     """
-    file_obj = io.StringIO(content)
+    file_obj_bytes = BytesIO(content.encode("utf-8"))
 
     # If S3 object_name was not specified, use unix timestamp
     if object_name is None or object_name == "":
         timestamp = int(time.time())
         object_name = str(timestamp)
 
-    # Upload the file
     s3_client = boto3.client("s3")
-
     try:
+        # Upload the file object
         s3_client.upload_fileobj(
-            Fileobj=file_obj,
+            Fileobj=file_obj_bytes,
             Bucket=bucket,
             Key=object_name,
             ExtraArgs={
@@ -43,3 +42,6 @@ def upload_object(content: str, bucket: str, object_name: str) -> bool:
         logging.error(e)
         return False
     return True
+
+
+upload_object_tool = function_tool(upload_object)
