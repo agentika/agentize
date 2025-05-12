@@ -20,6 +20,7 @@ class OpenAIAgent:
         self.summary_agent = get_summary_agent(
             lang=lang,
             length=length,
+            model=get_openai_model(model="o3-mini", api_type="chat_completions"),
         )
         self.main_agent = Agent(
             name="main_agent",
