@@ -168,8 +168,8 @@ def summary_agent_tool(agent: str, instructions: str, name: str, description: st
             output_type=AnalysisSummary,
         )
         .as_tool(
-            tool_name="fundamentals_analysis",
-            tool_description="Use to get a short write‑up of key financial metrics",
+            tool_name=name,
+            tool_description=description,
             custom_output_extractor=_summary_extractor,
         )
     )
