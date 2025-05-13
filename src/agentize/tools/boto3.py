@@ -57,7 +57,7 @@ def _upload_object(content: str, file_name: str) -> bool:
         file_name = Path(file_name).stem
 
     # Use the specified file name. upload path yy-mm-dd/<File Name>
-    object_name = f"{datetime.now().strftime('%y-%m-%d')}/{file_name}"
+    object_name = f"{datetime.now().strftime('%y-%m-%d')}/{file_name.lower()}"
 
     s3_client = boto3.client("s3")
     try:
