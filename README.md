@@ -83,9 +83,9 @@ pre-commit run --all-files
 ### Environment variables
 
 ```sh
-# OpenAI compatible proxy
-# export OPENAI_PROXY_BASE_URL="..."
-# export OPENAI_PROXY_API_KEY="..."
+# OpenAI compatible API
+# export OPENAI_BASE_URL="..."
+# export OPENAI_API_KEY="..."
 
 # OpenAI
 # export OPENAI_MODEL="gpt-4o-mini"

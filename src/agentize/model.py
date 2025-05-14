@@ -21,6 +21,10 @@ def get_openai_client() -> AsyncOpenAI:
     openai_proxy_base_url = os.getenv("OPENAI_PROXY_BASE_URL")
     if openai_proxy_api_key:
         logger.info("Using OpenAI proxy API key")
+        logger.warning(
+            "OPENAI_PROXY_API_KEY and OPENAI_PROXY_BASE_URL are deprecated."
+            "Use OPENAI_API_KEY and OPENAI_BASE_URL instead."
+        )
         return AsyncOpenAI(base_url=openai_proxy_base_url, api_key=openai_proxy_api_key)
 
     # Azure OpenAI-comatible endpoints
