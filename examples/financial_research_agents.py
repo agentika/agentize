@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import asyncio
-import random
 from collections.abc import Sequence
 from functools import cache
 
@@ -11,6 +10,7 @@ from agents import Runner
 from agents import RunResult
 from agents import Tool
 from agents import trace
+from aiolimiter import AsyncLimiter
 from dotenv import find_dotenv
 from dotenv import load_dotenv
 from loguru import logger
@@ -34,9 +34,6 @@ from agentize.tools.boto3 import upload_markdown_tool
 from agentize.tools.firecrawl import search_tool
 from agentize.utils import configure_langfuse
 
-BASE_DELAY = 2.0
-JITTER_RANGE = (0, 4.1)
-
 
 async def _summary_extractor(run_result: RunResult) -> str:
     """Custom output extractor for sub‑agents that return an AnalysisSummary."""
@@ -55,6 +52,8 @@ class ResearchManager:
             markdown_report="",
             follow_up_questions=[],
         )
+        # allow for 5 concurrent entries within a 1 minute window
+        self.rate_limit = AsyncLimiter(5)
 
     def _write_md_report(self) -> None:
         """Write the report to a file."""
@@ -88,12 +87,7 @@ class ResearchManager:
 
     async def _perform_searches(self, search_plan: FinancialSearchPlan) -> Sequence[str]:
         logger.info(f"Got {len(search_plan.searches)} financial search plans.")
-        tasks = [
-            # create a task for top 5 searches
-            # FIXME : this is a hack to avoid rate limiting
-            asyncio.create_task(self._search(item))
-            for item in search_plan.searches[:5]
-        ]
+        tasks = [asyncio.create_task(self._search(item)) for item in search_plan.searches]
         results: list[str] = []
         for task in asyncio.as_completed(tasks):
             result = await task
@@ -110,10 +104,10 @@ class ResearchManager:
             model_settings=ModelSettings(tool_choice="required"),
         )
         try:
-            # TODO: add random delay to avoid rate limiting
-            delay = BASE_DELAY + random.uniform(*JITTER_RANGE)
-            await asyncio.sleep(delay)
-            result = await Runner.run(search_agent, input_data)
+            async with self.rate_limit:
+                # this section is *at most* going to entered 5 times
+                logger.info("-------------- Search Now -------------------")
+                result = await Runner.run(search_agent, input_data)
             return str(result.final_output)
         except Exception:
             return None
