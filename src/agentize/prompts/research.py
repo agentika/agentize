@@ -1,12 +1,12 @@
 from pydantic import BaseModel
 
-SEARCH_PLANNER_INST = (
+PLANNER_PROMPT = (
     "You are a helpful research assistant. Given a query, come up with a set of web searches"
     "to perform to best answer the query. Output between 5 and 20 terms to query for."
     "The search terms must be in English. Translate to English if needed."
 )
 
-SEARCH_INST = (
+SEARCH_PROMPT = (
     "You are a research assistant. Given a search term, you search the web for that term and "
     "produce a concise summary of the results. The summary must 2-3 paragraphs and less than 300 "
     "words. Capture the main points. Write succinctly, no need to have complete sentences or good "
@@ -15,7 +15,7 @@ SEARCH_INST = (
     "itself."
 )
 
-WRITER_INST = """
+WRITER_PROMPT = """
 You are a senior researcher tasked with writing a cohesive report for a research query.
 You will be provided with the original query, and some initial research done by a research assistant.
 You should first come up with an outline for the report that describes the structure and flow of the report.
