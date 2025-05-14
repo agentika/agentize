@@ -83,9 +83,9 @@ pre-commit run --all-files
 ### Environment variables
 
 ```sh
-# OpenAI compatible proxy
-# export OPENAI_PROXY_BASE_URL="..."
-# export OPENAI_PROXY_API_KEY="..."
+# OpenAI compatible API
+# export OPENAI_BASE_URL="..."
+# export OPENAI_API_KEY="..."
 
 # OpenAI
 # export OPENAI_MODEL="gpt-4o-mini"
@@ -110,5 +110,5 @@ export AZURE_OPENAI_API_KEY="..."
 export AZURE_OPENAI_ENDPOINT="..."
 export OPENAI_MODEL="gpt-4.1"
 # see https://learn.microsoft.com/azure/ai-services/openai/api-version-deprecation for more details
-export AZURE_OPENAI_API_VERSION="2025-03-01-preview"
+export OPENAI_API_VERSION="2025-03-01-preview"
 ```
