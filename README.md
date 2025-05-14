@@ -59,6 +59,11 @@ Summarize chatbot.
 uv run chainlit run examples/summarize_chatbot.py -w
 ```
 
+Prompt generation:
+```
+uv run chainlit run examples/prompt_generation.py -w
+```
+
 ## Development
 
 type check and format the code
