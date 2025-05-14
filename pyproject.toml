@@ -1,6 +1,6 @@
 [project]
 name = "agentize"
-version = "0.0.17"
+version = "0.0.18"
 description = ""
 readme = "README.md"
 authors = [{ name = "narumi", email = "toucans-cutouts0f@icloud.com" }]
@@ -77,7 +77,7 @@ filterwarnings = ["ignore::DeprecationWarning"]
 ignore_missing_imports = true
 
 [tool.bumpversion]
-current_version = "0.0.17"
+current_version = "0.0.18"
 tag = true
 commit = true
 pre_commit_hooks = ["uv lock", "git add uv.lock"]
