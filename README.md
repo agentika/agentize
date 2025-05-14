@@ -112,3 +112,24 @@ export OPENAI_MODEL="gpt-4.1"
 # see https://learn.microsoft.com/azure/ai-services/openai/api-version-deprecation for more details
 export OPENAI_API_VERSION="2025-03-01-preview"
 ```
+
+We follow the same environment variable conventions used by the official OpenAI and Azure OpenAI SDKs. This ensures a seamless integration experience and consistency across environments. The only difference is that if the environment variable AZURE_OPENAI_API_KEY is present, AzureOpenAI will be used. Below is a list of supported environment variables for each client, along with their descriptions and usage examples.
+
+#### OpenAI / AsyncOpenAI
+| Variable Name       | Description                                          |
+| ------------------- | ---------------------------------------------------- |
+| `OPENAI_API_KEY`    | ✅ Required. Your OpenAI API key                      |
+| `OPENAI_ORG_ID`     | 🟡 Optional. Organization ID                         |
+| `OPENAI_PROJECT_ID` | 🟡 Optional. Project ID                              |
+| `OPENAI_BASE_URL`   | 🟡 Optional. Custom base URL (e.g., for proxy usage) |
+
+#### AzureOpenAI / AsyncAzureOpenAI
+
+| Variable Name           | Description                                                                 |
+| ----------------------- | --------------------------------------------------------------------------- |
+| `AZURE_OPENAI_API_KEY`  | ✅ Required if not using AD token. Azure OpenAI API key                      |
+| `AZURE_OPENAI_AD_TOKEN` | ✅ Required if not using API key. Azure Active Directory token               |
+| `OPENAI_API_VERSION`    | ✅ Required. API version, e.g., `2025-03-01-preview`                         |
+| `AZURE_OPENAI_ENDPOINT` | ✅ Required. Azure endpoint (e.g., `https://your-resource.openai.azure.com`) |
+| `OPENAI_ORG_ID`         | 🟡 Optional. Organization ID (for compatibility)                            |
+| `OPENAI_PROJECT_ID`     | 🟡 Optional. Project ID (for compatibility)                                 |
