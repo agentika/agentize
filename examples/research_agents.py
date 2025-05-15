@@ -5,6 +5,7 @@ from collections.abc import Sequence
 from functools import cache
 
 import chainlit as cl
+from agents import Agent
 from agents import ModelSettings
 from agents import Runner
 from agents import trace
@@ -13,7 +14,6 @@ from dotenv import find_dotenv
 from dotenv import load_dotenv
 from loguru import logger
 
-from agentize.agents import get_dummy_agent
 from agentize.model import get_openai_model
 from agentize.prompts.research import PLANNER_PROMPT
 from agentize.prompts.research import SEARCH_PROMPT
@@ -39,7 +39,7 @@ class ResearchManager:
             follow_up_questions=[],
             publish_link="",
         )
-        # allow for 5 concurrent entries within a 1 minute window
+        # allow for 2 concurrent entries within a 1 minute window
         self.rate_limit = AsyncLimiter(2)
 
     def _write_md_report(self) -> None:
@@ -59,10 +59,10 @@ class ResearchManager:
         return self.final_report
 
     async def _plan_searches(self, query: str) -> WebSearchPlan:
-        planner_agent = get_dummy_agent().clone(
+        planner_agent = Agent(
             name="planner_agent",
             instructions=PLANNER_PROMPT,
-            model=get_openai_model("o3-mini", api_type="chat_completions"),
+            model=get_openai_model("o3-mini", "chat_completions"),
             output_type=WebSearchPlan,
         )
 
@@ -81,9 +81,10 @@ class ResearchManager:
 
     async def _search(self, item: WebSearchItem) -> str | None:
         input_data = f"Search term: {item.query}\nReason: {item.reason}"
-        search_agent = get_dummy_agent().clone(
+        search_agent = Agent(
             name="search_agent",
             instructions=SEARCH_PROMPT,
+            model=get_openai_model("gpt-4.1"),
             tools=[duckduckgo_search],
             model_settings=ModelSettings(tool_choice="required"),
         )
@@ -99,10 +100,10 @@ class ResearchManager:
     async def _write_report(self, query: str, search_results: Sequence[str]) -> ReportData:
         input = f"Original query: {query}\nSummarized search results: {search_results}"
         logger.info(f"Search plan: {input.replace('\n', '; ')}")
-        writer_agent = get_dummy_agent().clone(
+        writer_agent = Agent(
             name="writer_agent",
             instructions=WRITER_PROMPT.format(lang="台灣繁體中文", length=1000),
-            model=get_openai_model("o3-mini", api_type="chat_completions"),
+            model=get_openai_model("o3-mini", "chat_completions"),
             tools=[upload_markdown_tool],
             model_settings=ModelSettings(tool_choice="required"),
             output_type=ReportData,
