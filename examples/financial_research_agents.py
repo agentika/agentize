@@ -5,6 +5,7 @@ from collections.abc import Sequence
 from functools import cache
 
 import chainlit as cl
+from agents import Agent
 from agents import ModelSettings
 from agents import Runner
 from agents import RunResult
@@ -75,7 +76,7 @@ class ResearchManager:
         return f"{self.final_report}"
 
     async def _plan_searches(self, query: str) -> FinancialSearchPlan:
-        planner_agent = get_dummy_agent().clone(
+        planner_agent = Agent(
             name="financial_planner_agent",
             instructions=PLANNER_PROMPT,
             model=get_openai_model("o3-mini", api_type="chat_completions"),
@@ -97,10 +98,11 @@ class ResearchManager:
 
     async def _search(self, item: FinancialSearchItem) -> str | None:
         input_data = f"Search term: {item.query}\nReason: {item.reason}"
-        search_agent = get_dummy_agent().clone(
+        search_agent = Agent(
             name="financial_search_agent",
             instructions=SEARCH_PROMPT,
             tools=[search_tool],
+            model=get_openai_model("gpt-4.1"),
             model_settings=ModelSettings(tool_choice="required"),
         )
         try:
@@ -126,7 +128,7 @@ class ResearchManager:
             name="risk_analysis",
             description="Use to get a short write‑up of potential red flags",
         )
-        writer_with_tools = get_dummy_agent().clone(
+        writer_with_tools = Agent(
             name="writer_agent",
             instructions=WRITER_PROMPT.format(lang="台灣繁體中文"),
             model=get_openai_model("o3-mini", api_type="chat_completions"),
@@ -140,9 +142,10 @@ class ResearchManager:
         return result.final_output_as(FinancialReportData)
 
     async def _verify_report(self, report: FinancialReportData) -> VerificationResult:
-        verifier_agent = get_dummy_agent().clone(
+        verifier_agent = Agent(
             name="verification_agent",
             instructions=VERIFIER_PROMPT,
+            model=get_openai_model("o3-mini", api_type="chat_completions"),
             output_type=VerificationResult,
         )
 
