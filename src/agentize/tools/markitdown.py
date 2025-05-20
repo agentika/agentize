@@ -4,7 +4,6 @@ import requests
 import ua_generator
 from agents import function_tool
 from loguru import logger
-from markitdown import MarkItDown
 
 from .firecrawl import firecrawl_scrape
 
@@ -15,6 +14,12 @@ def markitdown_scrape(url: str) -> str:
     Args:
         url (str): The URL to scrape.
     """
+    try:
+        from markitdown import MarkItDown
+    except ImportError as e:
+        raise ImportError(
+            "MarkItDown is not installed. Please install it with `pip install agetnize[markitdown]`."
+        ) from e
     user_agent = ua_generator.generate(
         device="desktop",
         platform=("windows", "macos"),

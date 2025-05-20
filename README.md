@@ -12,6 +12,12 @@ pip install agentize
 
 # If you want to use langfuse
 pip install agentize[langfuse]
+
+# If you want to use markitdown
+pip install agentize[markitdown]
+
+# Or just install all the extras
+pip install agentize[all]
 ```
 
 ### Tools
