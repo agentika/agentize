@@ -11,7 +11,6 @@ dependencies = [
     "duckduckgo-search>=8.0.1",
     "firecrawl-py>=2.5.3",
     "loguru>=0.7.3",
-    "markitdown>=0.1.1",
     "openai-agents>=0.0.14",
     "requests>=2.32.3",
     "tripplus>=0.1.1",
@@ -24,6 +23,13 @@ dependencies = [
 langfuse = [
     "logfire>=3.14.1",
     "nest-asyncio>=1.6.0",
+]
+markitdown = [
+    "markitdown>=0.1.1",
+]
+all = [
+    "langfuse>=2.60.5",
+    "markitdown>=0.1.1",
 ]
 
 [build-system]
