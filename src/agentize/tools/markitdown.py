@@ -4,6 +4,7 @@ import requests
 import ua_generator
 from agents import function_tool
 from loguru import logger
+from requests.exceptions import HTTPError
 
 from .firecrawl import firecrawl_scrape
 
@@ -31,7 +32,7 @@ def markitdown_scrape(url: str) -> str:
     try:
         result = md.convert_url(url)
         result_md = result.markdown
-    except requests.exceptions.HTTPError:
+    except HTTPError:
         logger.info(f"Fallback: failed to scrape {url} with MarkItDown, using firecrawl_scrape")
         result_md = firecrawl_scrape(url)
 

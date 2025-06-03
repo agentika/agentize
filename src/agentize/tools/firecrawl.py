@@ -19,7 +19,11 @@ def firecrawl_scrape(url: str) -> str:
     if not result.success:
         raise Exception(f"Failed to load URL: {url}, got: {result.error}")
 
-    return result.markdown
+    result_markdown = result.markdown
+    if result_markdown is None:
+        raise Exception(f"Failed to scrape URL: {url}, no markdown content found.")
+
+    return result_markdown
 
 
 def search(query: str) -> list[dict[str, str]]:
