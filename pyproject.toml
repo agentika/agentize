@@ -15,8 +15,7 @@ dependencies = [
     "requests>=2.32.3",
     "tripplus>=0.1.1",
     "ua-generator>=2.0.5",
-    #"wisest>=0.14.1",
-    "wisest",
+    "wisest>=0.15.0",
     "your-telegraph>=0.2.1",
 ]
 
@@ -88,6 +87,3 @@ current_version = "0.0.19"
 tag = true
 commit = true
 pre_commit_hooks = ["uv lock", "git add uv.lock"]
-
-[tool.uv.sources]
-wisest = { git = "https://github.com/chechiachang/wisest", branch = "feat/support-python-311" }

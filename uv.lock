@@ -9,7 +9,7 @@ resolution-markers = [
 
 [[package]]
 name = "agentize"
-version = "0.0.19"
+version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "aiolimiter" },
@@ -71,7 +71,7 @@ requires-dist = [
     { name = "requests", specifier = ">=2.32.3" },
     { name = "tripplus", specifier = ">=0.1.1" },
     { name = "ua-generator", specifier = ">=2.0.5" },
-    { name = "wisest", git = "https://github.com/chechiachang/wisest?branch=feat%2Fsupport-python-311" },
+    { name = "wisest", specifier = ">=0.15.0" },
     { name = "your-telegraph", specifier = ">=0.2.1" },
 ]
 provides-extras = ["langfuse", "markitdown", "all"]
@@ -3181,7 +3181,7 @@ wheels = [
 [[package]]
 name = "wisest"
 version = "0.15.0"
-source = { git = "https://github.com/chechiachang/wisest?branch=feat%2Fsupport-python-311#0a486a833431e0e93d6c2378a8584ebe3f61a1b1" }
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiolimiter" },
     { name = "httpx" },
@@ -3189,6 +3189,9 @@ dependencies = [
     { name = "rich" },
     { name = "tabulate" },
     { name = "typer" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/19/1e/c596463e5871815df3d1b3478172eff5aeec791b090307741081431956c6/wisest-0.15.0-py3-none-any.whl", hash = "sha256:6ad7da9ecedbe510c4159e55e00a515a51b003ed716eede0f0bf1998b84157fa", size = 7544, upload-time = "2025-08-10T09:22:58.714Z" },
 ]
 
 [[package]]
