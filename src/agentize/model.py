@@ -34,7 +34,10 @@ def get_openai_client() -> AsyncOpenAI:
         return AsyncAzureOpenAI(api_key=azure_api_key)
 
     logger.info("Using OpenAI API key")
-    return AsyncOpenAI()
+    openai_base_url = os.getenv("OPENAI_BASE_URL")
+    if openai_base_url:
+        logger.info(f"Using OpenAI base URL: {openai_base_url}")
+    return AsyncOpenAI(base_url=openai_base_url)
 
 
 @cache
