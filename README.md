@@ -97,6 +97,12 @@ pre-commit run --all-files
 # export OPENAI_MODEL="gpt-4o-mini"
 # export OPENAI_API_KEY="sk-..."
 
+# Gemini (Google Generative AI)
+export OPENAI_API_KEY="GOOGLE_API_KEY"
+export OPENAI_BASE_URL="https://generativelanguage.googleapis.com/v1beta/openai/"
+export OPENAI_MODEL="gemini-2.0-flash"
+export OPENAI_AGENTS_DISABLE_TRACING=1 # (Optional) Disable tracing provided by the OpenAI SDK
+
 # Firecrawl (optional)
 export FIRECRAWL_API_KEY="fc-..."
 
@@ -139,3 +145,25 @@ We follow the same environment variable conventions used by the official OpenAI 
 | `AZURE_OPENAI_ENDPOINT` | ✅ Required. Azure endpoint (e.g., `https://your-resource.openai.azure.com`) |
 | `OPENAI_ORG_ID`         | 🟡 Optional. Organization ID (for compatibility)                            |
 | `OPENAI_PROJECT_ID`     | 🟡 Optional. Project ID (for compatibility)                                 |
+
+#### OpenAI Compatible API / AsyncOpenAI
+
+| Variable Name       | Description                                          |
+| ------------------- | ---------------------------------------------------- |
+| `OPENAI_API_KEY`    | ✅ Required. Your OpenAI API key                     |
+| `OPENAI_BASE_URL`   | ✅ Required. Custom base URL (e.g., for proxy usage) |
+
+### Using OpenAI compatible API
+
+To use an OpenAI compatible API (like [Gemini](https://ai.google.dev/gemini-api/docs/openai)), you can use the `get_openai_model` function to change the API type to `chat_completions` and set the model accordingly. Here's an example of how to do this:
+
+```
+self.agent = Agent(
+    ...
+    model=get_openai_model(api_type="chat_completions"),
+
+# or if you want to use a specific model (Override the OPENAI_MODEL environment variable):
+self.agent = Agent(
+    ...
+    model=get_openai_model(model="gemini-2.0-flash", api_type="chat_completions"),
+```
