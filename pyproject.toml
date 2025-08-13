@@ -83,7 +83,7 @@ filterwarnings = ["ignore::DeprecationWarning"]
 ignore_missing_imports = true
 
 [tool.bumpversion]
-current_version = "0.0.19"
+current_version = "0.0.20"
 tag = true
 commit = true
 pre_commit_hooks = ["uv lock", "git add uv.lock"]
